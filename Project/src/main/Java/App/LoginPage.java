@@ -6,10 +6,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
-
+import java.awt.Image;
 public class LoginPage extends JFrame implements ActionListener {
     public LoginPage() {
         setTitle("Login Page");
+        ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("Images/pizza-svgrepo-com.svg"));
+        Image i2=i1.getImage().getScaledInstance(100, 100, DO_NOTHING_ON_CLOSE);
+        ImageIcon i3=new ImageIcon(i2);
+        JLabel label=new JLabel(i3);
+        add(label);
         // Email
         JLabel mail = new JLabel("Email:");
         Font font = new Font("Arial", Font.BOLD, 20);
