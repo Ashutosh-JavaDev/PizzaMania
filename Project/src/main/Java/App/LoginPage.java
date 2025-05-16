@@ -59,6 +59,18 @@ public class LoginPage extends JFrame implements ActionListener {
         JPasswordField passbox = new JPasswordField();
         passbox.setBounds(110, 230, 150, 20);
         add(passbox);
+        // Button
+        JButton button=new JButton("Login");
+        button.setBounds(300,270,80,40);
+        Font buttonFont=new Font("Arial",Font.BOLD,14);
+        button.setFont(buttonFont);
+        add(button);
+        // DSignup
+        JButton siggnup=new JButton("Signup");
+        siggnup.setBounds(100,270,100,40);
+        Font signupfont=new Font("Arial",Font.BOLD,14);
+        siggnup.setFont(signupfont);
+        add(siggnup);
         // Frame Creation
         setLayout(null);
         setSize(500, 400);
