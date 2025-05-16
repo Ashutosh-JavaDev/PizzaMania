@@ -65,12 +65,14 @@ public class LoginPage extends JFrame implements ActionListener {
         Font buttonFont=new Font("Arial",Font.BOLD,14);
         button.setFont(buttonFont);
         add(button);
+        button.addActionListener(this);
         // DSignup
         JButton siggnup=new JButton("Signup");
         siggnup.setBounds(100,270,100,40);
         Font signupfont=new Font("Arial",Font.BOLD,14);
         siggnup.setFont(signupfont);
         add(siggnup);
+        siggnup.addActionListener(this);
         // Frame Creation
         setLayout(null);
         setSize(500, 400);
