@@ -10,30 +10,39 @@ import java.awt.Image;
 public class LoginPage extends JFrame implements ActionListener {
     public LoginPage() {
         setTitle("Login Page");
-        ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("Images/pizza-svgrepo-com.svg"));
-        Image i2=i1.getImage().getScaledInstance(100, 100, DO_NOTHING_ON_CLOSE);
-        ImageIcon i3=new ImageIcon(i2);
-        JLabel label=new JLabel(i3);
-        add(label);
-        // Email
+        try{
+            ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/LoginPage.java"));
+            Image i2 = i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+            ImageIcon i3 = new ImageIcon(i2);
+            JLabel label = new JLabel(i3);
+            label.setBounds(50, 10, 100, 100);
+            add(label);
+        JLabel title=new JLabel("Pizza Mania");
+        title.setBounds(170,70,100,30);
+        add(title);
+        }
+        catch(NullPointerException e){
+            e.printStackTrace();
+        }
+        // // Email
         JLabel mail = new JLabel("Email:");
         Font font = new Font("Arial", Font.BOLD, 20);
         mail.setFont(font);
-        mail.setBounds(20, 20,70, 20);
+        mail.setBounds(80, 220,70, 20);
         add(mail);
         // Password
         JLabel password = new JLabel("Password:");
         Font pass = new Font("Arial", Font.BOLD, 20);
         password.setFont(pass);
-        password.setBounds(20, 60,120, 20);
+        password.setBounds(80, 270,120, 20);
         add(password);
         // Mail Box
         JTextField mailfield=new JTextField();
-        mailfield.setBounds(110,20,150,20);
+        mailfield.setBounds(110,250,150,20);
         add(mailfield);
         // Password  Box
         JPasswordField passbox=new JPasswordField();
-        passbox.setBounds(150,60,150,20);
+        passbox.setBounds(110,300,150,20);
         add(passbox);
         // Frame Creation
         setLayout(null);
