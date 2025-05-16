@@ -1,16 +1,17 @@
 package main.Java.App;
 
 import javax.swing.*;
-
+import java.sql.SQLException;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.ResultSet;
 import java.util.Scanner;
 import java.awt.Image;
 
 public class LoginPage extends JFrame implements ActionListener {
-    JButton button, siggnup;
+    JButton button, siggnup,Clear;
     JTextField mailfield;
     JPasswordField passbox;
 
@@ -78,6 +79,13 @@ public class LoginPage extends JFrame implements ActionListener {
         siggnup.setFont(signupfont);
         add(siggnup);
         siggnup.addActionListener(this);
+        // Clear
+        Clear = new JButton("Login");
+        Clear.setBounds(0, 270, 80, 40);
+        Font ClearFont = new Font("Arial", Font.BOLD, 14);
+        button.setFont(ClearFont);
+        add(Clear);
+        Clear.addActionListener(this);
         // Frame Creation
         setLayout(null);
         setSize(500, 400);
@@ -93,6 +101,21 @@ public class LoginPage extends JFrame implements ActionListener {
             String emmailID = mailfield.getText();
             String password = passbox.getText();
             String query = "select*from LoginPage where Email='" + emmailID + "' and Password='" + password + "'";
+            try{
+                DatabaseConnectivity conn=new DatabaseConnectivity();
+                ResultSet res=conn.statem.executeQuery(query);
+                if(res.next()){
+                    setVisible(false);
+                    new main();
+                }
+                else{
+                    JOptionPane.showMessageDialog(rootPane, "Email ID or password Not Matched");
+                    ae.setSource(Clear);
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
