@@ -1,21 +1,21 @@
 package main.Java.App;
-
 import javax.swing.*;
+import java.sql.SQLException;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.ResultSet;
+import java.util.Scanner;
 import java.awt.Image;
 import java.awt.BorderLayout;
-
-public class Registration extends JFrame implements ActionListener {
-    JLabel title, Fname, Lname, email, phone, password, ConfirmPassword;
-    JTextField FnameField, LnameField, emailfield, phonefield;
-    JPasswordField passwordField, ConfirmPasswordField;
+public class Registration extends  JFrame implements ActionListener {
+    JLabel title,Fname,Lname,email,phone,password,ConfirmPassword;
+    JTextField FnameField,LnameField,emailfield,phonefield;
+    JPasswordField passwordField,ConfirmPasswordField;
     JButton submit;
-
-    public Registration() {
-        try {
+    public Registration(){
+        try {          
             File file = new File(
                     "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
             if (!file.exists()) {
@@ -24,54 +24,66 @@ public class Registration extends JFrame implements ActionListener {
             ImageIcon i1 = new ImageIcon(file.getAbsolutePath());
 
             // ImageIcon i1 = new ImageIcon(getClass().getResource("/images/pizza.jpg"));
-            Image i2 = i1.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+            Image i2 = i1.getImage().getScaledInstance(400,400, Image.SCALE_SMOOTH);
             ImageIcon i3 = new ImageIcon(i2);
             JLabel label = new JLabel(i3);
-            label.setBounds(270, 200, 410, 410);
-            add(label, BorderLayout.CENTER);
+            label.setBounds(270,200,410,410);
+            add(label,BorderLayout.CENTER);
 
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        // 2. Title
-        title = new JLabel("User Registration Form");
-        title.setBounds(220, 120, 300, 30);
-        title.setFont(new Font("Arial", Font.BOLD, 20));
+        // Title
+        setTitle("Registration Form");
+        title=new JLabel("User Registration Form");
+        title.setBounds(250,10,250,25);
+        Font tFont=new  Font("Arial",Font.BOLD,18);
+        title.setFont(tFont);
         add(title);
-
-        // 3. First Name
-        Fname = new JLabel("First Name");
-        Fname.setBounds(50, 180, 100, 25);
-        Fname.setFont(new Font("Arial", Font.BOLD, 15));
+        //FirstName   
+        Fname=new JLabel("First Name");
+        Fname.setBounds(10,60,90,25);
+        Font fFont=new Font("Arial",Font.BOLD,15);
+        Fname.setFont(fFont);
         add(Fname);
-
-        FnameField = new JTextField();
-        FnameField.setBounds(150, 180, 200, 25);
+        FnameField=new JTextField();
+        FnameField.setBounds(110, 60, 150, 25);
+        Font fFieldFont=new Font("Arial",Font.PLAIN,12);
+        FnameField.setFont(fFieldFont);
         add(FnameField);
-
-        // 4. Last Name
-        Lname = new JLabel("Last Name");
-        Lname.setBounds(380, 180, 100, 25);
-        Lname.setFont(new Font("Arial", Font.BOLD, 15));
+        // Second Name
+        Lname=new JLabel("Last Name");
+        Lname.setBounds(320,60,90,25);
+        Font lFont=new Font("Arial",Font.BOLD,15);
+        Lname.setFont(lFont);
         add(Lname);
-
-        LnameField = new JTextField();
-        LnameField.setBounds(480, 180, 200, 25);
+        LnameField=new JTextField();
+        LnameField.setBounds(420, 60, 150, 25);
+        Font lFieldFont=new Font("Arial",Font.PLAIN,12);
+        LnameField.setFont(lFieldFont);
         add(LnameField);
+        // Email
+        email = new JLabel("Email ID");
+        email.setBounds(10,90,100, 25);
+        email.setFont(new Font("Arial", Font.BOLD, 15));
+        add(email);
+
+        emailfield = new JTextField();
+        emailfield.setBounds(110,90,150, 25);
+        emailfield.setFont(new Font("Arial", Font.BOLD, 15));
+        add(emailfield);
         setLayout(null);
-        setSize(700, 600);
+        setSize(700,600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
     }
-
-    public void actionPerformed(ActionEvent ae) {
-
+    public void actionPerformed(ActionEvent ae){
+        
     }
-
     public static void main(String[] args) {
         new Registration();
     }
-
+    
 }
