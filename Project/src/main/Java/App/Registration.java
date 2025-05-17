@@ -112,7 +112,7 @@ public class Registration extends  JFrame implements ActionListener {
     }
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==submit){
-            
+            String fnameField=FnameField.getText();
         }
     }
     public static void main(String[] args) {
