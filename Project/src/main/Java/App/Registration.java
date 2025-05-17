@@ -102,6 +102,7 @@ public class Registration extends  JFrame implements ActionListener {
         submit.setBounds(10,250,100, 25);
         submit.setFont(new Font("Arial", Font.BOLD, 15));
         add(submit);
+        submit.addActionListener(this);
         setLayout(null);
         setSize(700,500);
         setLocationRelativeTo(null);
@@ -110,7 +111,9 @@ public class Registration extends  JFrame implements ActionListener {
 
     }
     public void actionPerformed(ActionEvent ae){
-        
+        if(ae.getSource()==submit){
+            
+        }
     }
     public static void main(String[] args) {
         new Registration();
