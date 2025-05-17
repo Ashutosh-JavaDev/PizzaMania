@@ -102,6 +102,9 @@ public class Registration extends  JFrame implements ActionListener {
         add(passwordField);
         // Button
         submit=new JButton("Submit");
+        submit.setBounds(10,350,100, 25);
+        submit.setFont(new Font("Arial", Font.BOLD, 15));
+        add(submit);
         setLayout(null);
         setSize(700,600);
         setLocationRelativeTo(null);
