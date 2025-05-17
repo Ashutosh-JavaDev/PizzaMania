@@ -24,7 +24,7 @@ public class Registration extends  JFrame implements ActionListener {
             Image i2 = i1.getImage().getScaledInstance(230,230, Image.SCALE_SMOOTH);
             ImageIcon i3 = new ImageIcon(i2);
             JLabel label = new JLabel(i3);
-            label.setBounds(400,50,240,240);
+            label.setBounds(400,200,240,240);
             add(label,BorderLayout.CENTER);
 
         } catch (NullPointerException e) {
@@ -103,7 +103,7 @@ public class Registration extends  JFrame implements ActionListener {
         submit.setFont(new Font("Arial", Font.BOLD, 15));
         add(submit);
         setLayout(null);
-        setSize(700,300);
+        setSize(700,500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
