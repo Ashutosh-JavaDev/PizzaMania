@@ -9,10 +9,15 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 import java.awt.Image;
 public class Registration extends  JFrame implements ActionListener {
-    JLabel title,Fname,Lname,email,phone,password,ConfirmmPassword;
+    JLabel title,Fname,Lname,email,phone,password,ConfirmPassword;
+    JTextField FnameField,Lnamefield,emailfield,phonefield;
+    JPasswordField passwordField,ConfirmPasswordField;
+    JButton submit;
     public Registration(){
         setTitle("Registration Form");
-
+        title=new JLabel("User Registration Form");
+        title.setBounds(200,10,400,20);
+        add(title);
         setLayout(null);
         setSize(700,600);
         setLocation(600, 200);
