@@ -9,11 +9,13 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 import java.awt.Image;
 public class Registration extends  JFrame implements ActionListener {
+    JLabel title,Fname,Lname,email,phone,password,ConfirmmPassword;
     public Registration(){
         setTitle("Registration Form");
+
         setLayout(null);
-        setSize(500,500);
-        setLocation(400, 400);
+        setSize(700,600);
+        setLocation(600, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
