@@ -119,22 +119,22 @@ public class Registration extends  JFrame implements ActionListener {
             String Password=passwordField.getText();
             String confirmPassword=ConfirmPasswordField.getText();
             if(fnameField.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "First Nane Cannot be Empty");
+                JOptionPane.showMessageDialog(rootPane, "First Name Cannot be Empty");
             }
             if(lnameField.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "First Nane Cannot be Empty");
+                JOptionPane.showMessageDialog(rootPane, "Last Name Cannot be Empty");
             }
             if(Email.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "First Nane Cannot be Empty");
+                JOptionPane.showMessageDialog(rootPane, "Email Cannot be Empty");
             }
             if(phoneNumber.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "First Nane Cannot be Empty");
+                JOptionPane.showMessageDialog(rootPane, "Phone Number Cannot be Empty");
             }
             if(Password.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "First Nane Cannot be Empty");
+                JOptionPane.showMessageDialog(rootPane, "Password Cannot be Empty");
             }
             if(confirmPassword.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "First Nane Cannot be Empty");
+                JOptionPane.showMessageDialog(rootPane, "Confirm Password Cannot be Empty");
             }
         }
     }
