@@ -80,7 +80,7 @@ public class LoginPage extends JFrame implements ActionListener {
         add(siggnup);
         siggnup.addActionListener(this);
         // Clear
-        Clear = new JButton("Login");
+        Clear = new JButton("Clear");
         Clear.setBounds(0, 270, 80, 40);
         Font ClearFont = new Font("Arial", Font.BOLD, 14);
         button.setFont(ClearFont);
