@@ -64,14 +64,44 @@ public class Registration extends  JFrame implements ActionListener {
         add(LnameField);
         // Email
         email = new JLabel("Email ID");
-        email.setBounds(10,90,100, 25);
+        email.setBounds(10,110,100, 25);
         email.setFont(new Font("Arial", Font.BOLD, 15));
         add(email);
 
         emailfield = new JTextField();
-        emailfield.setBounds(110,90,150, 25);
+        emailfield.setBounds(110,110,150, 25);
         emailfield.setFont(new Font("Arial", Font.BOLD, 15));
         add(emailfield);
+        // phone
+        phone = new JLabel("Contact No.");
+        phone.setBounds(320,110,150, 25);
+        phone.setFont(new Font("Arial", Font.BOLD, 15));
+        add(phone);
+
+        phonefield = new JTextField();
+        phonefield.setBounds(420,110,150, 25);
+        phonefield.setFont(new Font("Arial", Font.BOLD, 15));
+        add(phonefield);
+        // Password
+        password=new JLabel("Password");
+        password.setBounds(10,160,100, 25);
+        password.setFont(new Font("Arial", Font.BOLD, 15));
+        add(password);
+        passwordField = new JPasswordField();
+        passwordField.setBounds(110,160,150, 25);
+        passwordField.setFont(new Font("Arial", Font.BOLD, 15));
+        add(passwordField);
+        // checkPassword
+        ConfirmPassword=new JLabel("Confirm");
+        ConfirmPassword.setBounds(320,160,100, 25);
+        ConfirmPassword.setFont(new Font("Arial", Font.BOLD, 15));
+        add(ConfirmPassword);
+        passwordField = new JPasswordField();
+        passwordField.setBounds(420,160,150, 25);
+        passwordField.setFont(new Font("Arial", Font.BOLD, 15));
+        add(passwordField);
+        // Button
+        submit=new JButton("Submit");
         setLayout(null);
         setSize(700,600);
         setLocationRelativeTo(null);
