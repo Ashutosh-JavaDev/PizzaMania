@@ -116,6 +116,8 @@ public class Registration extends  JFrame implements ActionListener {
             String lnameField=LnameField.getText();
             String Email=emailfield.getText();
             String phoneNumber=phonefield.getText();
+            String Password=passwordField.getText();
+            String confirmPassword=ConfirmPasswordField.getText();
         }
     }
     public static void main(String[] args) {
