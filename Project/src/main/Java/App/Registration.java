@@ -1,20 +1,24 @@
 package main.Java.App;
+
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.awt.Image;
 import java.awt.BorderLayout;
-public class Registration extends  JFrame implements ActionListener {
-    JLabel title,Fname,Lname,email,phone,password,ConfirmPassword;
-    JTextField FnameField,LnameField,emailfield,phonefield;
-    JPasswordField passwordField,ConfirmPasswordField;
+
+public class Registration extends JFrame implements ActionListener {
+    JLabel title, Fname, Lname, email, phone, password, ConfirmPassword;
+    JTextField FnameField, LnameField, emailfield, phonefield;
+    JPasswordField passwordField, ConfirmPasswordField;
     JButton submit;
-    public Registration(){
-        try {          
+
+    public Registration() {
+        try {
             File file = new File(
                     "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
             if (!file.exists()) {
@@ -23,132 +27,135 @@ public class Registration extends  JFrame implements ActionListener {
             ImageIcon i1 = new ImageIcon(file.getAbsolutePath());
 
             // ImageIcon i1 = new ImageIcon(getClass().getResource("/images/pizza.jpg"));
-            Image i2 = i1.getImage().getScaledInstance(230,230, Image.SCALE_SMOOTH);
+            Image i2 = i1.getImage().getScaledInstance(230, 230, Image.SCALE_SMOOTH);
             ImageIcon i3 = new ImageIcon(i2);
             JLabel label = new JLabel(i3);
-            label.setBounds(400,200,240,240);
-            add(label,BorderLayout.CENTER);
+            label.setBounds(400, 200, 240, 240);
+            add(label, BorderLayout.CENTER);
 
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
         // Title
         setTitle("Registration Form");
-        title=new JLabel("User Registration Form");
-        title.setBounds(250,10,250,25);
-        Font tFont=new  Font("Arial",Font.BOLD,18);
+        title = new JLabel("User Registration Form");
+        title.setBounds(250, 10, 250, 25);
+        Font tFont = new Font("Arial", Font.BOLD, 18);
         title.setFont(tFont);
         add(title);
-        //FirstName   
-        Fname=new JLabel("First Name");
-        Fname.setBounds(10,60,90,25);
-        Font fFont=new Font("Arial",Font.BOLD,15);
+        // FirstName
+        Fname = new JLabel("First Name");
+        Fname.setBounds(10, 60, 90, 25);
+        Font fFont = new Font("Arial", Font.BOLD, 15);
         Fname.setFont(fFont);
         add(Fname);
-        FnameField=new JTextField();
+        FnameField = new JTextField();
         FnameField.setBounds(110, 60, 150, 25);
-        Font fFieldFont=new Font("Arial",Font.PLAIN,12);
+        Font fFieldFont = new Font("Arial", Font.PLAIN, 12);
         FnameField.setFont(fFieldFont);
         add(FnameField);
         // Second Name
-        Lname=new JLabel("Last Name");
-        Lname.setBounds(320,60,90,25);
-        Font lFont=new Font("Arial",Font.BOLD,15);
+        Lname = new JLabel("Last Name");
+        Lname.setBounds(320, 60, 90, 25);
+        Font lFont = new Font("Arial", Font.BOLD, 15);
         Lname.setFont(lFont);
         add(Lname);
-        LnameField=new JTextField();
+        LnameField = new JTextField();
         LnameField.setBounds(420, 60, 150, 25);
-        Font lFieldFont=new Font("Arial",Font.PLAIN,12);
+        Font lFieldFont = new Font("Arial", Font.PLAIN, 12);
         LnameField.setFont(lFieldFont);
         add(LnameField);
         // Email
         email = new JLabel("Email ID");
-        email.setBounds(10,110,100, 25);
+        email.setBounds(10, 110, 100, 25);
         email.setFont(new Font("Arial", Font.BOLD, 15));
         add(email);
 
         emailfield = new JTextField();
-        emailfield.setBounds(110,110,150, 25);
+        emailfield.setBounds(110, 110, 150, 25);
         emailfield.setFont(new Font("Arial", Font.BOLD, 15));
         add(emailfield);
         // phone
         phone = new JLabel("Contact No.");
-        phone.setBounds(320,110,150, 25);
+        phone.setBounds(320, 110, 150, 25);
         phone.setFont(new Font("Arial", Font.BOLD, 15));
         add(phone);
 
         phonefield = new JTextField();
-        phonefield.setBounds(420,110,150, 25);
+        phonefield.setBounds(420, 110, 150, 25);
         phonefield.setFont(new Font("Arial", Font.BOLD, 15));
         add(phonefield);
         // Password
-        password=new JLabel("Password");
-        password.setBounds(10,160,100, 25);
+        password = new JLabel("Password");
+        password.setBounds(10, 160, 100, 25);
         password.setFont(new Font("Arial", Font.BOLD, 15));
         add(password);
         passwordField = new JPasswordField();
-        passwordField.setBounds(110,160,150, 25);
+        passwordField.setBounds(110, 160, 150, 25);
         passwordField.setFont(new Font("Arial", Font.BOLD, 15));
         add(passwordField);
         // checkPassword
-        ConfirmPassword=new JLabel("Confirm");
-        ConfirmPassword.setBounds(320,160,100, 25);
+        ConfirmPassword = new JLabel("Confirm");
+        ConfirmPassword.setBounds(320, 160, 100, 25);
         ConfirmPassword.setFont(new Font("Arial", Font.BOLD, 15));
         add(ConfirmPassword);
         passwordField = new JPasswordField();
-        passwordField.setBounds(420,160,150, 25);
+        passwordField.setBounds(420, 160, 150, 25);
         passwordField.setFont(new Font("Arial", Font.BOLD, 15));
         add(passwordField);
         // Button
-        submit=new JButton("Submit");
-        submit.setBounds(10,250,100, 25);
+        submit = new JButton("Submit");
+        submit.setBounds(10, 250, 100, 25);
         submit.setFont(new Font("Arial", Font.BOLD, 15));
         add(submit);
         submit.addActionListener(this);
         setLayout(null);
-        setSize(700,500);
+        setSize(700, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
     }
-    public void actionPerformed(ActionEvent ae){
-        if(ae.getSource()==submit){
-            String fnameField=FnameField.getText();
-            String lnameField=LnameField.getText();
-            String Email=emailfield.getText();
-            String phoneNumber=phonefield.getText();
-            String Password=passwordField.getText();
-            String confirmPassword=ConfirmPasswordField.getText();
-            if(fnameField.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "First Name Cannot be Empty");
-            }
-            if(lnameField.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "Last Name Cannot be Empty");
-            }
-            if(Email.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "Email Cannot be Empty");
-            }
-            if(phoneNumber.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "Phone Number Cannot be Empty");
-            }
-            if(Password.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "Password Cannot be Empty");
-            }
-            if(confirmPassword.equals("")){
-                JOptionPane.showMessageDialog(rootPane, "Confirm Password Cannot be Empty");
-            }
-            try{
 
-            }
-            catch(Exception  e){
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == submit) {
+            String fnameField = FnameField.getText();
+            String lnameField = LnameField.getText();
+            String Email = emailfield.getText();
+            String phoneNumber = phonefield.getText();
+            String Password = passwordField.getText();
+            String confirmPassword = ConfirmPasswordField.getText();
+            try {
+
+                if (fnameField.equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "First Name Cannot be Empty");
+                } else if (lnameField.equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Last Name Cannot be Empty");
+                } else if (Email.equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Email Cannot be Empty");
+                } else if (phoneNumber.equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Phone Number Cannot be Empty");
+                } else if (Password.equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Password Cannot be Empty");
+                } else if (confirmPassword.equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Confirm Password Cannot be Empty");
+                }
+                else {
+                    DatabaseConnectivity conn = new DatabaseConnectivity();
+                    String sql="insert into Registration values('"+fnameField+"' ,'"+lnameField+",'"+Email+"','"+phoneNumber+"','"+Password+"','"+confirmPassword+ "')";
+                   
+                    
+                }
+
+            } catch (Exception e) {
                 JOptionPane.showConfirmDialog(rootPane, "SQL Connection not Stabilish");
                 e.printStackTrace();
             }
         }
     }
+
     public static void main(String[] args) {
         new Registration();
     }
-    
+
 }

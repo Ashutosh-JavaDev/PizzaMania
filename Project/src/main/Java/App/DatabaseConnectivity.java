@@ -12,7 +12,7 @@ public class DatabaseConnectivity {
     public DatabaseConnectivity() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql:///BankManagementSystem", "root", "@Radhakrishna297");
+            conn = DriverManager.getConnection("jdbc:mysql:///PizzaMania", "root", "@Radhakrishna297");
             statem = conn.createStatement();
         }
 
