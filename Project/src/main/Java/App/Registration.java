@@ -2,8 +2,10 @@ package main.Java.App;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.SQLException;
 import java.awt.Image;
 import java.awt.BorderLayout;
 public class Registration extends  JFrame implements ActionListener {
@@ -135,6 +137,13 @@ public class Registration extends  JFrame implements ActionListener {
             }
             if(confirmPassword.equals("")){
                 JOptionPane.showMessageDialog(rootPane, "Confirm Password Cannot be Empty");
+            }
+            try{
+
+            }
+            catch(Exception  e){
+                JOptionPane.showConfirmDialog(rootPane, "SQL Connection not Stabilish");
+                e.printStackTrace();
             }
         }
     }
