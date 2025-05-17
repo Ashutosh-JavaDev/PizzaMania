@@ -24,10 +24,10 @@ public class Registration extends  JFrame implements ActionListener {
             ImageIcon i1 = new ImageIcon(file.getAbsolutePath());
 
             // ImageIcon i1 = new ImageIcon(getClass().getResource("/images/pizza.jpg"));
-            Image i2 = i1.getImage().getScaledInstance(400,400, Image.SCALE_SMOOTH);
+            Image i2 = i1.getImage().getScaledInstance(230,230, Image.SCALE_SMOOTH);
             ImageIcon i3 = new ImageIcon(i2);
             JLabel label = new JLabel(i3);
-            label.setBounds(270,200,410,410);
+            label.setBounds(400,50,240,240);
             add(label,BorderLayout.CENTER);
 
         } catch (NullPointerException e) {
@@ -102,11 +102,11 @@ public class Registration extends  JFrame implements ActionListener {
         add(passwordField);
         // Button
         submit=new JButton("Submit");
-        submit.setBounds(10,350,100, 25);
+        submit.setBounds(10,250,100, 25);
         submit.setFont(new Font("Arial", Font.BOLD, 15));
         add(submit);
         setLayout(null);
-        setSize(700,600);
+        setSize(700,300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
