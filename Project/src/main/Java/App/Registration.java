@@ -8,6 +8,12 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.util.Scanner;
 import java.awt.Image;
-public class Registration {
+public class Registration extends  JFrame implements ActionListener {
+    public Registration(){
+
+    }
+    public void actionPerformed(ActionEvent ae){
+        
+    }
     
 }
