@@ -123,28 +123,25 @@ public class Registration extends JFrame implements ActionListener {
             String lnameField = LnameField.getText();
             String Email = emailfield.getText();
             String phoneNumber = phonefield.getText();
+          
             String Password = passwordField.getText();
             String confirmPassword = ConfirmPasswordField.getText();
             try {
 
-                if (fnameField.equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "First Name Cannot be Empty");
-                } else if (lnameField.equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Last Name Cannot be Empty");
-                } else if (Email.equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Email Cannot be Empty");
-                } else if (phoneNumber.equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Phone Number Cannot be Empty");
-                } else if (Password.equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Password Cannot be Empty");
-                } else if (confirmPassword.equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Confirm Password Cannot be Empty");
-                }
-                else {
+                if (fnameField.isEmpty() || lnameField.isEmpty() || Email.isEmpty() || phoneNumber.isEmpty() || Password.isEmpty()
+                        || confirmPassword.isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "All fields are required!");
+                } else if (!Password.equals(confirmPassword)) {
+                    JOptionPane.showMessageDialog(rootPane, "Passwords do not match!");
+                } else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
-                    String sql="insert into Registration values('"+fnameField+"' ,'"+lnameField+",'"+Email+"','"+phoneNumber+"','"+Password+"','"+confirmPassword+ "')";
-                   
-                    
+                    String sql = "insert into Registration values('" + fnameField + "' ,'" + lnameField + ",'" + Email
+                            + "','" + phoneNumber + "','" + Password + "','" + confirmPassword + "')";
+                    conn.statem.executeQuery(sql);
+                    setVisible(false);
+                    new LoginPage().setVisible(true);
+                    ;
+
                 }
 
             } catch (Exception e) {
