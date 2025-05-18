@@ -15,17 +15,22 @@ public class Registration extends JFrame implements ActionListener {
     JButton submit;
 
     public boolean checkpas(String Password) {
+        if ((Password.length() < 8) || (Password.length() > 16)) {
+            JOptionPane.showMessageDialog(rootPane, "Password must be between 8 and 16 characters.");
+            return false;
+        }
+    
         boolean res = false;
-        for (int i = 0; i < Password.length() - 1; i++) {
+        for (int i = 0; i < Password.length(); i++) { // include last character
             char ch = Password.charAt(i);
-            if ((Character.isLowerCase(ch)) && Character.isUpperCase(ch) && Character.isDigit(ch)) {
+            if (Character.isLowerCase(ch) || Character.isUpperCase(ch) || Character.isDigit(ch)) {
                 res = true;
             }
-
         }
+    
         return res;
-
     }
+    
 
     public Registration() {
         try {
@@ -148,7 +153,7 @@ public class Registration extends JFrame implements ActionListener {
                 } else if (!Password.matches(".*[^a-zA-Z0-9 ].*")) {
                     JOptionPane.showMessageDialog(rootPane, "Password must contain at least one special character!");
                 } else  if(!checkpas(Password)){
-                    JOptionPane.showMessageDialog(rootPane,"Password must contain Uppercase and Lowercase");
+                    JOptionPane.showMessageDialog(rootPane,"Password must contain Uppercase and Lowercase and Digit");
                 }else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
                     String sql = "Insert into Registration values('" + fnameField + "' ,'" + lnameField + "','" + Email
