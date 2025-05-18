@@ -121,12 +121,6 @@ public class Registration extends JFrame implements ActionListener {
             String lnameField = LnameField.getText();
             String Email = emailfield.getText();
             String phoneNumber = phonefield.getText();
-          try{
-
-          }catch(InputMismatchException e){
-            JOptionPane.showMessageDialog(rootPane,"Please Enter valid  phone Number");
-            e.printStackTrace();
-          }
             String Password = passwordField.getText();
             String confirmPassword = ConfirmPasswordField.getText();
             try {
@@ -136,7 +130,9 @@ public class Registration extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(rootPane, "All fields are required!");
                 } else if (!Password.equals(confirmPassword)) {
                     JOptionPane.showMessageDialog(rootPane, "Passwords do not match!");
-                } else {
+                } else if(!phoneNumber.matches("\\d{10}")){
+                    JOptionPane.showMessageDialog(rootPane, "Phone number must be exactly 10 digits!");
+                }else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
                     String sql = "Insert into Registration values('" + fnameField + "' ,'" + lnameField + "','" + Email
                             + "','" + phoneNumber + "','" + Password + "','" + confirmPassword + "')";
