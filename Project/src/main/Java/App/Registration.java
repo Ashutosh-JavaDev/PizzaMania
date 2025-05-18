@@ -3,11 +3,9 @@ package main.Java.App;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.PreparedStatement;
+import java.util.InputMismatchException;
 import java.awt.Image;
 import java.awt.BorderLayout;
 
@@ -99,10 +97,10 @@ public class Registration extends JFrame implements ActionListener {
         ConfirmPassword.setBounds(320, 160, 100, 25);
         ConfirmPassword.setFont(new Font("Arial", Font.BOLD, 15));
         add(ConfirmPassword);
-        passwordField = new JPasswordField();
-        passwordField.setBounds(420, 160, 150, 25);
-        passwordField.setFont(new Font("Arial", Font.BOLD, 15));
-        add(passwordField);
+        ConfirmPasswordField = new JPasswordField();
+        ConfirmPasswordField.setBounds(420, 160, 150, 25);
+        ConfirmPasswordField.setFont(new Font("Arial", Font.BOLD, 15));
+        add(ConfirmPasswordField);
         // Button
         submit = new JButton("Submit");
         submit.setBounds(10, 250, 100, 25);
@@ -123,7 +121,12 @@ public class Registration extends JFrame implements ActionListener {
             String lnameField = LnameField.getText();
             String Email = emailfield.getText();
             String phoneNumber = phonefield.getText();
-          
+          try{
+
+          }catch(InputMismatchException e){
+            JOptionPane.showMessageDialog(rootPane,"Please Enter valid  phone Number");
+            e.printStackTrace();
+          }
             String Password = passwordField.getText();
             String confirmPassword = ConfirmPasswordField.getText();
             try {
@@ -135,17 +138,18 @@ public class Registration extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(rootPane, "Passwords do not match!");
                 } else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
-                    String sql = "insert into Registration values('" + fnameField + "' ,'" + lnameField + ",'" + Email
+                    String sql = "Insert into Registration values('" + fnameField + "' ,'" + lnameField + "','" + Email
                             + "','" + phoneNumber + "','" + Password + "','" + confirmPassword + "')";
-                    conn.statem.executeQuery(sql);
+                    conn.statem.executeUpdate(sql);
+                    JOptionPane.showMessageDialog(rootPane, "Registration successful!");
                     setVisible(false);
                     new LoginPage().setVisible(true);
-                    ;
 
                 }
 
             } catch (Exception e) {
-                JOptionPane.showConfirmDialog(rootPane, "SQL Connection not Stabilish");
+                JOptionPane.showMessageDialog(rootPane, "Database connection not established!");
+
                 e.printStackTrace();
             }
         }
