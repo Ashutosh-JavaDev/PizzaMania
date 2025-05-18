@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.InputMismatchException;
 import java.awt.Image;
 import java.awt.BorderLayout;
 
@@ -14,7 +13,10 @@ public class Registration extends JFrame implements ActionListener {
     JTextField FnameField, LnameField, emailfield, phonefield;
     JPasswordField passwordField, ConfirmPasswordField;
     JButton submit;
-
+    public boolean checkpas(){
+        boolean res=false;
+        return res;
+    }
     public Registration() {
         try {
             File file = new File(
@@ -132,6 +134,9 @@ public class Registration extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(rootPane, "Passwords do not match!");
                 } else if(!phoneNumber.matches("\\d{10}")){
                     JOptionPane.showMessageDialog(rootPane, "Phone number must be exactly 10 digits!");
+                }else if((Password.length()<8)||(!Password.contains(confirmPassword))){
+
+
                 }else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
                     String sql = "Insert into Registration values('" + fnameField + "' ,'" + lnameField + "','" + Email
@@ -149,8 +154,9 @@ public class Registration extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         }
+      
     }
-
+   
     public static void main(String[] args) {
         new Registration();
     }
