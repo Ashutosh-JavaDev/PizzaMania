@@ -13,10 +13,23 @@ public class Registration extends JFrame implements ActionListener {
     JTextField FnameField, LnameField, emailfield, phonefield;
     JPasswordField passwordField, ConfirmPasswordField;
     JButton submit;
-    public boolean checkpas(){
-        boolean res=false;
+
+    public boolean checkpas(String Password) {
+        boolean res = false;
+        if ((Password.length() < 8) || (Password.length() > 16)) {
+            JOptionPane.showMessageDialog(rootPane, "Password must be in  length of 8-16");
+        }
+        for (int i = 0; i < Password.length() - 1; i++) {
+            char ch = Password.charAt(i);
+            if ((Character.isLowerCase(ch)) && Character.isUpperCase(ch) && Character.isDigit(ch)) {
+                res = true;
+            }
+
+        }
         return res;
+
     }
+
     public Registration() {
         try {
             File file = new File(
@@ -127,17 +140,17 @@ public class Registration extends JFrame implements ActionListener {
             String confirmPassword = ConfirmPasswordField.getText();
             try {
 
-                if (fnameField.isEmpty() || lnameField.isEmpty() || Email.isEmpty() || phoneNumber.isEmpty() || Password.isEmpty()
+                if (fnameField.isEmpty() || lnameField.isEmpty() || Email.isEmpty() || phoneNumber.isEmpty()
+                        || Password.isEmpty()
                         || confirmPassword.isEmpty()) {
                     JOptionPane.showMessageDialog(rootPane, "All fields are required!");
                 } else if (!Password.equals(confirmPassword)) {
                     JOptionPane.showMessageDialog(rootPane, "Passwords do not match!");
-                } else if(!phoneNumber.matches("\\d{10}")){
+                } else if (!phoneNumber.matches("\\d{10}")) {
                     JOptionPane.showMessageDialog(rootPane, "Phone number must be exactly 10 digits!");
-                }else if((Password.length()<8)||(!Password.contains(confirmPassword))){
-
-
-                }else {
+                } else if (!Password.matches(".*[^a-zA-Z0-9 ].*")) {
+                    JOptionPane.showMessageDialog(rootPane, "Password must contain at least one special character!");
+                } else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
                     String sql = "Insert into Registration values('" + fnameField + "' ,'" + lnameField + "','" + Email
                             + "','" + phoneNumber + "','" + Password + "','" + confirmPassword + "')";
@@ -154,9 +167,9 @@ public class Registration extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         }
-      
+
     }
-   
+
     public static void main(String[] args) {
         new Registration();
     }
