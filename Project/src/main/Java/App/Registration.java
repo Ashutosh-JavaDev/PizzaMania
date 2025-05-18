@@ -16,9 +16,6 @@ public class Registration extends JFrame implements ActionListener {
 
     public boolean checkpas(String Password) {
         boolean res = false;
-        if ((Password.length() < 8) || (Password.length() > 16)) {
-            JOptionPane.showMessageDialog(rootPane, "Password must be in  length of 8-16");
-        }
         for (int i = 0; i < Password.length() - 1; i++) {
             char ch = Password.charAt(i);
             if ((Character.isLowerCase(ch)) && Character.isUpperCase(ch) && Character.isDigit(ch)) {
@@ -150,7 +147,9 @@ public class Registration extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(rootPane, "Phone number must be exactly 10 digits!");
                 } else if (!Password.matches(".*[^a-zA-Z0-9 ].*")) {
                     JOptionPane.showMessageDialog(rootPane, "Password must contain at least one special character!");
-                } else {
+                } else  if(!checkpas(Password)){
+                    JOptionPane.showMessageDialog(rootPane,"Password must contain Uppercase and Lowercase");
+                }else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
                     String sql = "Insert into Registration values('" + fnameField + "' ,'" + lnameField + "','" + Email
                             + "','" + phoneNumber + "','" + Password + "','" + confirmPassword + "')";
