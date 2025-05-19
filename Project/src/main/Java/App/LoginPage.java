@@ -1,4 +1,5 @@
 package main.Java.App;
+
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,7 +9,7 @@ import java.sql.ResultSet;
 import java.awt.Image;
 
 public class LoginPage extends JFrame implements ActionListener {
-    JButton Login, siggnup,Clear;
+    JButton Login, siggnup, Clear;
     JTextField mailfield;
     JPasswordField passbox;
 
@@ -94,29 +95,35 @@ public class LoginPage extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource()==Clear){
+        if (ae.getSource() == Clear) {
             mailfield.setText("");
             passbox.setText("");
         }
         if (ae.getSource() == Login) {
-            String emmailID = mailfield.getText();
+            String EmailID = mailfield.getText();
             String password = passbox.getText();
-            String query = "select*from LoginPage where Email='" + emmailID + "' and Password='" + password + "'";
-            try{
-                DatabaseConnectivity conn=new DatabaseConnectivity();
-                ResultSet res=conn.statem.executeQuery(query);
-                if(res.next()){
+            try {
+                DatabaseConnectivity conn = new DatabaseConnectivity();
+                String query = "select*from LoginPage where Email='" + EmailID + "' and Password='" + password + "'";
+
+                ResultSet res = conn.statem.executeQuery(query);
+                if (res.next()) {
+                    JOptionPane.showMessageDialog(rootPane, "Login Successful");
+
                     setVisible(false);
-                    new main();
-                }
-                else{
+                    // new main();
+
+                } else {
                     JOptionPane.showMessageDialog(rootPane, "Email ID or password Not Matched");
                     ae.setSource(Clear);
                 }
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        if(ae.getSource()==siggnup){
+            setVisible(false);
+            new Registration();
         }
     }
 

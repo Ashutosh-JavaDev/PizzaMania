@@ -19,7 +19,7 @@ public class Registration extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(rootPane, "Password must be between 8 and 16 characters.");
             return false;
         }
-    
+
         boolean res = false;
         for (int i = 0; i < Password.length(); i++) { // include last character
             char ch = Password.charAt(i);
@@ -27,10 +27,9 @@ public class Registration extends JFrame implements ActionListener {
                 res = true;
             }
         }
-    
+
         return res;
     }
-    
 
     public Registration() {
         try {
@@ -152,13 +151,18 @@ public class Registration extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(rootPane, "Phone number must be exactly 10 digits!");
                 } else if (!Password.matches(".*[^a-zA-Z0-9 ].*")) {
                     JOptionPane.showMessageDialog(rootPane, "Password must contain at least one special character!");
-                } else  if(!checkpas(Password)){
-                    JOptionPane.showMessageDialog(rootPane,"Password must contain Uppercase and Lowercase and Digit");
-                }else {
+                } else if (!checkpas(Password)) {
+                    JOptionPane.showMessageDialog(rootPane, "Password must contain Uppercase and Lowercase and Digit");
+                } else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
                     String sql = "Insert into Registration values('" + fnameField + "' ,'" + lnameField + "','" + Email
                             + "','" + phoneNumber + "','" + Password + "','" + confirmPassword + "')";
+                    String loginQuery = "INSERT INTO LoginPage (Email, Password) " +
+                            "SELECT Email, Password FROM Registration WHERE Email = '" + Email + "'";
+
                     conn.statem.executeUpdate(sql);
+                    conn.statem.executeUpdate(loginQuery);
+
                     JOptionPane.showMessageDialog(rootPane, "Registration successful!");
                     setVisible(false);
                     new LoginPage().setVisible(true);
