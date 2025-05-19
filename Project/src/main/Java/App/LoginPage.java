@@ -95,7 +95,8 @@ public class LoginPage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource()==Clear){
-
+            mailfield.setText("");
+            passbox.setText("");
         }
         if (ae.getSource() == Login) {
             String emmailID = mailfield.getText();
