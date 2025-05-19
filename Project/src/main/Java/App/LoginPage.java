@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.awt.Image;
 
 public class LoginPage extends JFrame implements ActionListener {
-    JButton button, siggnup,Clear;
+    JButton Login, siggnup,Clear;
     JTextField mailfield;
     JPasswordField passbox;
 
@@ -63,12 +63,12 @@ public class LoginPage extends JFrame implements ActionListener {
         passbox.setBounds(110, 230, 150, 20);
         add(passbox);
         // Button
-        button = new JButton("Login");
-        button.setBounds(300, 270, 80, 40);
-        Font buttonFont = new Font("Arial", Font.BOLD, 14);
-        button.setFont(buttonFont);
-        add(button);
-        button.addActionListener(this);
+        Clear = new JButton("Clear");
+        Clear.setBounds(300, 270, 80, 40);
+        Font ClearFont = new Font("Arial", Font.BOLD, 14);
+        Clear.setFont(ClearFont);
+        add(Clear);
+        Clear.addActionListener(this);
         // DSignup
         siggnup = new JButton("Signup");
         siggnup.setBounds(100, 270, 100, 40);
@@ -77,11 +77,11 @@ public class LoginPage extends JFrame implements ActionListener {
         add(siggnup);
         siggnup.addActionListener(this);
         // Clear
-        Clear = new JButton("Clear");
-        Clear.setBounds(0, 270, 80, 40);
-        Font ClearFont = new Font("Arial", Font.BOLD, 14);
-        button.setFont(ClearFont);
-        add(Clear);
+        Login = new JButton("Login");
+        Login.setBounds(10, 270, 80, 40);
+        Font LoginFont = new Font("Arial", Font.BOLD, 14);
+        Login.setFont(LoginFont);
+        add(Login);
         Clear.addActionListener(this);
         // Frame Creation
         setLayout(null);
@@ -94,7 +94,10 @@ public class LoginPage extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == button) {
+        if(ae.getSource()==Clear){
+
+        }
+        if (ae.getSource() == Login) {
             String emmailID = mailfield.getText();
             String password = passbox.getText();
             String query = "select*from LoginPage where Email='" + emmailID + "' and Password='" + password + "'";
