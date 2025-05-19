@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class DatabaseConnectivity {
-    Connection conn;
-    Statement statem;
+    public Connection conn;
+    public Statement statem;
 
     public DatabaseConnectivity() throws SQLException {
         try {

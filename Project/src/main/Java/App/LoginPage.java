@@ -83,7 +83,7 @@ public class LoginPage extends JFrame implements ActionListener {
         Font LoginFont = new Font("Arial", Font.BOLD, 14);
         Login.setFont(LoginFont);
         add(Login);
-        Clear.addActionListener(this);
+        Login.addActionListener(this);
         // Frame Creation
         setLayout(null);
         setSize(500, 400);
@@ -102,9 +102,10 @@ public class LoginPage extends JFrame implements ActionListener {
         if (ae.getSource() == Login) {
             String EmailID = mailfield.getText();
             String password = passbox.getText();
+            String query = "select*from LoginPage where Email='" + EmailID + "' and Password='" + password + "'";
+
             try {
                 DatabaseConnectivity conn = new DatabaseConnectivity();
-                String query = "select*from LoginPage where Email='" + EmailID + "' and Password='" + password + "'";
 
                 ResultSet res = conn.statem.executeQuery(query);
                 if (res.next()) {

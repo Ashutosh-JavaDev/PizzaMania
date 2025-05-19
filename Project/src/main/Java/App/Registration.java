@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.PreparedStatement;
 import java.awt.Image;
 import java.awt.BorderLayout;
 
@@ -139,6 +140,7 @@ public class Registration extends JFrame implements ActionListener {
             String phoneNumber = phonefield.getText();
             String Password = passwordField.getText();
             String confirmPassword = ConfirmPasswordField.getText();
+
             try {
 
                 if (fnameField.isEmpty() || lnameField.isEmpty() || Email.isEmpty() || phoneNumber.isEmpty()
@@ -155,14 +157,23 @@ public class Registration extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(rootPane, "Password must contain Uppercase and Lowercase and Digit");
                 } else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
-                    String sql = "Insert into Registration values('" + fnameField + "' ,'" + lnameField + "','" + Email
-                            + "','" + phoneNumber + "','" + Password + "','" + confirmPassword + "')";
-                    String loginQuery = "INSERT INTO LoginPage (Email, Password) " +
-                            "SELECT Email, Password FROM Registration WHERE Email = '" + Email + "'";
 
-                    conn.statem.executeUpdate(sql);
-                    conn.statem.executeUpdate(loginQuery);
-
+                    String sql = "INSERT INTO Registration (fnameField, lnameField, Email, phoneNumber, Password, confirmPassword) VALUES (?, ?, ?, ?, ?, ?)";
+                    PreparedStatement pstmt = conn.conn.prepareStatement(sql);
+                    pstmt.setString(1, fnameField);
+                    pstmt.setString(2, lnameField);
+                    pstmt.setString(3, Email);
+                    pstmt.setString(4, phoneNumber);
+                    pstmt.setString(5, Password);
+                    pstmt.setString(6, confirmPassword);
+                    pstmt.executeUpdate();
+                    
+                    String loginQuery = "INSERT INTO LoginPage (Email, Password) VALUES (?, ?)";
+                    PreparedStatement loginStmt = conn.conn.prepareStatement(loginQuery);
+                    loginStmt.setString(1, Email);
+                    loginStmt.setString(2, Password);
+                    loginStmt.executeUpdate();
+                    
                     JOptionPane.showMessageDialog(rootPane, "Registration successful!");
                     setVisible(false);
                     new LoginPage().setVisible(true);
