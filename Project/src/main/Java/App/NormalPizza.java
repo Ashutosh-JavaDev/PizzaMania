@@ -10,7 +10,7 @@ import java.awt.BorderLayout;
 public class NormalPizza extends JFrame  implements ActionListener{
     public NormalPizza(){
         setLayout(null);
-        setSize(700, 1000);
+        setSize(1000,700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
