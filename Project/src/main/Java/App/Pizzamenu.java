@@ -8,7 +8,8 @@ import java.sql.PreparedStatement;
 import java.awt.Image;
 import java.awt.BorderLayout;
 public class Pizzamenu extends JFrame  implements ActionListener{
-    JLabel Pizzaname ,vegPizza,nonvegPizza,DeluxPizza,nondeluxPizza;
+    JLabel Pizzaname;
+    JCheckBox type=new JCheckBox("'Veg Pizza','Non-Veg Pizza','Delux Veg  Pizza','Non-Veg Delux'");
     public Pizzamenu(){
         setTitle("Pizza Mania");
 
