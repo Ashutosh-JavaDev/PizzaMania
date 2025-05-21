@@ -7,9 +7,9 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.awt.Image;
 import java.awt.BorderLayout;
-public class NormalPizza extends JFrame  implements ActionListener{
-    
-    public NormalPizza(){
+public class Pizzamenu extends JFrame  implements ActionListener{
+    JLabel Pizzaname ,vegPizza,nonvegPizza,DeluxPizza,nondeluxPizza;
+    public Pizzamenu(){
         setTitle("Pizza Mania");
 
         setLayout(null);
@@ -22,6 +22,6 @@ public class NormalPizza extends JFrame  implements ActionListener{
 
     }
     public static void main(String[] args) {
-        new NormalPizza();
+        new Pizzamenu();
     }
 }
