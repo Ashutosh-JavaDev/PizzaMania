@@ -12,7 +12,9 @@ public class Pizzamenu extends JFrame  implements ActionListener{
     JCheckBox type=new JCheckBox("'Veg Pizza','Non-Veg Pizza','Delux Veg  Pizza','Non-Veg Delux'");
     public Pizzamenu(){
         setTitle("Pizza Mania");
-
+        Pizzaname=new JLabel("Pizza Name");
+        Pizzaname.setBounds(10, 50, 150, 30);
+        add(Pizzaname);
         setLayout(null);
         setSize(1000,700);
         setLocationRelativeTo(null);
