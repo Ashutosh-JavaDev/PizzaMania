@@ -13,6 +13,7 @@ public class Pizzamenu extends JFrame  implements ActionListener{
     public Pizzamenu(){
         setTitle("Pizza Mania");
         Pizzaname=new JLabel("Pizza Name");
+        
         Pizzaname.setBounds(10, 50, 150, 30);
         add(Pizzaname);
         setLayout(null);
