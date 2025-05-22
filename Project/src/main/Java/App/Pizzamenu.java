@@ -89,6 +89,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
         Order.setBackground(Color.red);
         Order.setForeground(Color.white);
         add(Order);
+        Order.addActionListener(this);
         panel.setSize(1000, 400);
         panel.setBackground(Color.yellow);
         add(panel);
