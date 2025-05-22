@@ -66,7 +66,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
 
         type.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                String selectedPizza=(String)type.getSelectedItem();
+                String selectedPizza = (String) type.getSelectedItem();
                 if (selectedPizza.equals("Veg Pizza")) {
                     JOptionPane.showMessageDialog(null, "You selected Veg Pizza. Enjoy your green delight!");
                 } else if (selectedPizza.equals("Non-Veg Pizza")) {
@@ -119,27 +119,35 @@ public class Pizzamenu extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
-@Override
+
+    @Override
     public void actionPerformed(ActionEvent ae) {
-        
-        if(ae.getSource()==Order){
-          String selectedPizza=(String)type.getSelectedItem();
-          boolean cheese=ExtraCheese.isSelected();
-          boolean toppings=ExtraToppings.isSelected();
-          boolean TakeAway=takeAway.isSelected();
-          int total=0;
-          if(selectedPizza.equals("Veg Pizza")){
-            total+=200;
-          }
-          else if(selectedPizza.equals("Non Veg Pizza")){
-            total+=300;
-          }
-          else if(selectedPizza.equals("Delux Veg Pizza")){
-            total+=300;
-          }
-          else if(selectedPizza.equals("Delux Non-Veg Pizza")){
-            total+=350;
-          }
+
+        if (ae.getSource() == Order) {
+            String selectedPizza = (String) type.getSelectedItem();
+            boolean cheese = ExtraCheese.isSelected();
+            boolean toppings = ExtraToppings.isSelected();
+            boolean TakeAway = takeAway.isSelected();
+            int total = 0;
+            if (selectedPizza.equals("Veg Pizza")) {
+                total += 200;
+            } else if (selectedPizza.equals("Non Veg Pizza")) {
+                total += 300;
+            } else if (selectedPizza.equals("Delux Veg Pizza")) {
+                total += 300;
+            } else if (selectedPizza.equals("Delux Non-Veg Pizza")) {
+                total += 350;
+            }
+            // Add
+            if(cheese){
+                 total+=100;
+            }
+            else if(toppings){
+                total+=150;
+            }
+            else if(TakeAway){
+                total+=20;
+            }
         }
     }
 
