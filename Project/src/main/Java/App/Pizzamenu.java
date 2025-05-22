@@ -148,6 +148,14 @@ public class Pizzamenu extends JFrame implements ActionListener {
             else if(TakeAway){
                 total+=20;
             }
+            StringBuilder message = new StringBuilder("Order Summary:\n");
+            message.append("Pizza: ").append(selectedPizza).append("\n");
+            if (cheese) message.append("Extra Cheese: Yes (Rs.100)\n");
+            if (toppings) message.append("Extra Toppings: Yes (Rs.150)\n");
+            if (TakeAway) message.append("Take Away: Yes (Rs.20)\n");
+            message.append("Total Price: Rs.").append(total);
+    
+            JOptionPane.showMessageDialog(null, message.toString());
         }
     }
 
