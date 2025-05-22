@@ -167,7 +167,9 @@ public class Pizzamenu extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null,message.toString());
 
             // JDBC Connection
-            
+            // INSERT INTO LoginPage (Email, Password)
+// SELECT Email, Password FROM Registration WHERE Email = ?;
+
             try{
                 DatabaseConnectivity conn=new DatabaseConnectivity();
 
