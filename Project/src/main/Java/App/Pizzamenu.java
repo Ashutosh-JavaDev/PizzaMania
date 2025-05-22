@@ -6,26 +6,25 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 public class Pizzamenu extends JFrame implements ActionListener {
-    JLabel Pizzaname,option,types;
+    JLabel Pizzaname, option, types;
     String[] list = { "Veg Pizza", "Non-Veg Pizza", "Delux Veg  Pizza", "Non-Veg Delux" };
     JComboBox<String> type = new JComboBox<>(list);
-    String []lists={"Extra Cheese","Extra Toppings"};
-    JCheckBox extraType=new JCheckBox();
+    JCheckBox ExtraCheese, ExtraToppings,takeAway;
+
     public Pizzamenu() {
-       
+
         setTitle("Pizza Mania");
         // title
         JLabel label = new JLabel("Welcome to Pizza Mania!");
         Font labelFont = new Font("Serif", Font.PLAIN, 28);
         label.setFont(labelFont);
-        label.setBounds((1000-300)/2, 10, 400, 30);
+        label.setBounds((1000 - 300) / 2, 10, 400, 30);
         add(label);
         //
 
-        option=new JLabel("Choose Your Desire Pizza");
-        Font optionFont = new Font("Arial", Font.BOLD,20);
+        option = new JLabel("Choose Your Desire Pizza");
+        Font optionFont = new Font("Arial", Font.BOLD, 20);
         option.setFont(optionFont);
         option.setBounds(380, 50, 600, 30);
         add(option);
@@ -35,20 +34,27 @@ public class Pizzamenu extends JFrame implements ActionListener {
         Pizzaname.setBounds(30, 100, 140, 30);
         add(Pizzaname);
         // type
-        type.setBounds(150,100, 150, 30);
+        type.setBounds(150, 100, 150, 30);
         add(type);
         // Types
-        types=new JLabel("Add Extra Resources");
-        types.setBounds(30,150,250,30);
-         Font typesFont = new Font("Arial", Font.BOLD,16);
+        types = new JLabel("Add Extra Resources");
+        types.setBounds(30, 150, 250, 30);
+        Font typesFont = new Font("Arial", Font.BOLD, 16);
         types.setFont(typesFont);
         add(types);
-        extraType.setBounds(300,150,300,30);
-        for(String str:lists){
-             extraType=new JCheckBox(str);
-            add(extraType);
-        }
-
+        // Extra Toppings
+        ExtraToppings=new JCheckBox("Rs.150-Extra Toppings");
+        ExtraToppings.setBounds(270, 150, 300, 30);
+        add(ExtraToppings);
+        // Extra Cheese
+        ExtraCheese=new JCheckBox("Rs.100-Extra Cheese");
+        ExtraCheese.setBounds(270, 190, 300, 30);
+        add(ExtraCheese);
+        // Take Away
+        takeAway=new JCheckBox("Rs.20-Take Away");
+        takeAway.setBounds(270, 230, 300, 30);
+        add(takeAway);
+        // 
         setLayout(null);
         setSize(1000, 700);
         setLocationRelativeTo(null);
