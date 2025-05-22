@@ -12,7 +12,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
     JLabel Pizzaname, option, types;
     String[] list = { "Veg Pizza", "Non-Veg Pizza", "Delux Veg  Pizza", "Non-Veg Delux" };
     JComboBox<String> type = new JComboBox<>(list);
-    JCheckBox ExtraCheese, ExtraToppings,takeAway;
+    JCheckBox ExtraCheese, ExtraToppings, takeAway;
 
     public Pizzamenu() {
 
@@ -31,39 +31,37 @@ public class Pizzamenu extends JFrame implements ActionListener {
         option.setBounds(380, 50, 600, 30);
         add(option);
         // Adding Image
-        //    try {
-        //     File file = new File(
-        //             "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
-        //     if (!file.exists()) {
-        //         System.out.println("Image file not found!");
-        //     }
-        //     ImageIcon i1 = new ImageIcon(file.getAbsolutePath());
+        // try {
+        // File file = new File(
+        // "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
+        // if (!file.exists()) {
+        // System.out.println("Image file not found!");
+        // }
+        // ImageIcon i1 = new ImageIcon(file.getAbsolutePath());
 
-        //     // ImageIcon i1 = new ImageIcon(getClass().getResource("/images/pizza.jpg"));
-        //     Image i2 = i1.getImage().getScaledInstance(230, 230, Image.SCALE_SMOOTH);
-        //     ImageIcon i3 = new ImageIcon(i2);
-        //     JLabel image = new JLabel(i3);
-        //     image.setBounds(400, 200, 240, 240);
-        //     add(image, BorderLayout.CENTER);
+        // // ImageIcon i1 = new ImageIcon(getClass().getResource("/images/pizza.jpg"));
+        // Image i2 = i1.getImage().getScaledInstance(230, 230, Image.SCALE_SMOOTH);
+        // ImageIcon i3 = new ImageIcon(i2);
+        // JLabel image = new JLabel(i3);
+        // image.setBounds(400, 200, 240, 240);
+        // add(image, BorderLayout.CENTER);
 
         // } catch (NullPointerException e) {
-        //     e.printStackTrace();
+        // e.printStackTrace();
         // }
-        try{
-            File file=new File("/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
-            if(!file.exists()){
+        try {
+            File file = new File(
+                    "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
+            if (!file.exists()) {
                 System.out.println("File Not Found");
             }
-            ImageIcon i1=new ImageIcon(file.getAbsolutePath());
-            Image i2=i1.getImage().getScaledInstance(230, 230, Image.SCALE_SMOOTH);
-            ImageIcon i3=new ImageIcon(i2);
-            JLabel image=new JLabel(i3);
-            add(image,BorderLayout.CENTER);
-            // ImageIcon i1=new ImageIcon(getClass().getResource("/images.pizza.jpg"));
-
-
-        }
-        catch(NullPointerException e){
+            ImageIcon i1 = new ImageIcon(file.getAbsolutePath());
+            Image i2 = i1.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+            ImageIcon i3 = new ImageIcon(i2);
+            JLabel image = new JLabel(i3);
+            image.setBounds(500, 100, 450, 300);
+            add(image, BorderLayout.CENTER);
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
         Pizzaname = new JLabel("Pizza Name");
@@ -81,18 +79,18 @@ public class Pizzamenu extends JFrame implements ActionListener {
         types.setFont(typesFont);
         add(types);
         // Extra Toppings
-        ExtraToppings=new JCheckBox("Rs.150-Extra Toppings");
+        ExtraToppings = new JCheckBox("Rs.150-Extra Toppings");
         ExtraToppings.setBounds(270, 150, 300, 30);
         add(ExtraToppings);
         // Extra Cheese
-        ExtraCheese=new JCheckBox("Rs.100-Extra Cheese");
+        ExtraCheese = new JCheckBox("Rs.100-Extra Cheese");
         ExtraCheese.setBounds(270, 190, 300, 30);
         add(ExtraCheese);
         // Take Away
-        takeAway=new JCheckBox("Rs.20-Take Away");
+        takeAway = new JCheckBox("Rs.20-Take Away");
         takeAway.setBounds(270, 230, 300, 30);
         add(takeAway);
-        // 
+        //
         setLayout(null);
         setSize(1000, 700);
         setLocationRelativeTo(null);
