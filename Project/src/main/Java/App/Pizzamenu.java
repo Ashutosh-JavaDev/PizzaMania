@@ -4,8 +4,11 @@ import javax.management.RuntimeErrorException;
 import javax.swing.*;
 
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.awt.Image;
@@ -21,8 +24,9 @@ public class Pizzamenu extends JFrame implements ActionListener {
         setTitle("Pizza Mania");
         // title
         JLabel label = new JLabel("Welcome to Pizza Mania!");
-        label.setFont(loadCustomFont("Font/Dancing_Script/static/DancingScript-Regular.ttf", Font.PLAIN, 24));
+        label.setFont(loadCustomFont("DancingScript-Regular.ttf", Font.PLAIN, 24));
         label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setBounds(150,10,300,30);
         add(label);
         //
         Pizzaname = new JLabel("Pizza Name");
@@ -40,23 +44,36 @@ public class Pizzamenu extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private Font loadCustomFont(String path, int style, float size) {
+    private Font loadCustomFont(String fontFileName, int style, float size) {
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream(path);
-            if (is == null) {
-                throw new RuntimeException("Font not found at the : " + path);
+            File file = new File("fonts/" + fontFileName);
+            if (!file.exists()) {
+                System.err.println("Font file not found: " + file.getAbsolutePath());
+                throw new RuntimeException("Font file missing.");
             }
-            Font font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(style, size);
+    
+            InputStream is = new FileInputStream(file);
+            Font font = Font.createFont(Font.TRUETYPE_FONT, is);
+            font = font.deriveFont(style, size);
+    
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(font);
+    
+            System.out.println("Font loaded successfully: " + font.getFontName());
+    
+            return font;
         } catch (Exception e) {
-
+            e.printStackTrace();
+            return new Font("Serif", Font.PLAIN, 24); // fallback
         }
     }
-
+    
+    
     public void actionPerformed(ActionEvent ae) {
 
     }
 
     public static void main(String[] args) {
-        new Pizzamenu();
+        SwingUtilities.invokeLater(Pizzamenu::new);
     }
 }
