@@ -58,6 +58,21 @@ public class Pizzamenu extends JFrame implements ActionListener {
         // type
         type.setBounds(150, 100, 150, 30);
         add(type);
+
+        type.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                String selectedPizza=(String)type.getSelectedItem();
+                if (selectedPizza.equals("Veg Pizza")) {
+                    JOptionPane.showMessageDialog(null, "You selected Veg Pizza. Enjoy your green delight!");
+                } else if (selectedPizza.equals("Non-Veg Pizza")) {
+                    JOptionPane.showMessageDialog(null, "Non-Veg Pizza selected. Meaty and delicious!");
+                } else if (selectedPizza.equals("Delux Veg  Pizza")) {
+                    JOptionPane.showMessageDialog(null, "Delux Veg Pizza — loaded with extra veggies!");
+                } else if (selectedPizza.equals("Non-Veg Delux")) {
+                    JOptionPane.showMessageDialog(null, "Non-Veg Delux — top-tier indulgence!");
+                }
+            }
+        });
         // Types
         types = new JLabel("Add Extra Resources");
         types.setBounds(30, 150, 250, 30);
