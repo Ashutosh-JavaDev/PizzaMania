@@ -1,6 +1,6 @@
 package main.Java.App;
 
-class VegPizza {
+class allPizza {
     public int Vegpizza = 300;
     public int nonVegpizza = 400;
     public int DeluxVegpizza = 550;
