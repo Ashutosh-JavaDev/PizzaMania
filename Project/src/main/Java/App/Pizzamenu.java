@@ -16,7 +16,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
     public int DeluxNonVegpizza = 650;
     public int deliveryCharges = 20;
     JLabel Pizzaname, option, types;
-    String[] list = { "Veg Pizza", "Non-Veg Pizza", "Delux Veg  Pizza", "Non-Veg Delux" };
+    String[] list = { "Veg Pizza", "Non-Veg Pizza", "Delux Veg  Pizza", "Delux Non-Veg Pizza" };
     JComboBox<String> type = new JComboBox<>(list);
     JCheckBox ExtraCheese, ExtraToppings, takeAway;
     JButton Order;
@@ -127,6 +127,19 @@ public class Pizzamenu extends JFrame implements ActionListener {
           boolean cheese=ExtraCheese.isSelected();
           boolean toppings=ExtraToppings.isSelected();
           boolean TakeAway=takeAway.isSelected();
+          int total=0;
+          if(selectedPizza.equals("Veg Pizza")){
+            total+=200;
+          }
+          else if(selectedPizza.equals("Non Veg Pizza")){
+            total+=300;
+          }
+          else if(selectedPizza.equals("Delux Veg Pizza")){
+            total+=300;
+          }
+          else if(selectedPizza.equals("Delux Non-Veg Pizza")){
+            total+=350;
+          }
         }
     }
 
