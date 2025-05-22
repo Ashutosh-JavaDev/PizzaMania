@@ -131,31 +131,40 @@ public class Pizzamenu extends JFrame implements ActionListener {
             int total = 0;
             if (selectedPizza.equals("Veg Pizza")) {
                 total += 200;
-            } else if (selectedPizza.equals("Non Veg Pizza")) {
+            }
+            if (selectedPizza.equals("Non-Veg Pizza")) {
                 total += 300;
-            } else if (selectedPizza.equals("Delux Veg Pizza")) {
+            }
+            if (selectedPizza.equals("Delux Veg Pizza")) {
                 total += 300;
-            } else if (selectedPizza.equals("Delux Non-Veg Pizza")) {
+            }
+            if (selectedPizza.equals("Delux Non-Veg Pizza")) {
                 total += 350;
             }
             // Add
-            if(cheese){
-                 total+=100;
+            if (cheese) {
+                total += 100;
             }
-            else if(toppings){
-                total+=150;
+            if (toppings) {
+                total += 150;
             }
-            else if(TakeAway){
-                total+=20;
+            if (TakeAway) {
+                total += 20;
             }
-            StringBuilder message = new StringBuilder("Order Summary:\n");
+           
+            StringBuilder message=new StringBuilder("Order Summary\n");
             message.append("Pizza: ").append(selectedPizza).append("\n");
-            if (cheese) message.append("Extra Cheese: Yes (Rs.100)\n");
-            if (toppings) message.append("Extra Toppings: Yes (Rs.150)\n");
-            if (TakeAway) message.append("Take Away: Yes (Rs.20)\n");
-            message.append("Total Price: Rs.").append(total);
-    
-            JOptionPane.showMessageDialog(null, message.toString());
+            if(cheese){
+                message.append("Extra Cheesse: Yes(Rs.100)\n");
+            }
+            if(toppings){
+                message.append("Extra Toppings Yes(Rs.150)\n");
+            }
+            if(TakeAway){
+                message.append("Take Away: Yes(Rs.20)\n");
+            }
+            message.append("Total Price: Rs."+total);
+            JOptionPane.showMessageDialog(null,message.toString());
         }
     }
 
