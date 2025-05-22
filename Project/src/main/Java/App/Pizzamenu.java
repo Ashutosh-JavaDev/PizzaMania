@@ -1,10 +1,12 @@
 package main.Java.App;
 
 import javax.swing.*;
-
+import java.awt.Image;
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class Pizzamenu extends JFrame implements ActionListener {
     JLabel Pizzaname, option, types;
@@ -28,6 +30,25 @@ public class Pizzamenu extends JFrame implements ActionListener {
         option.setFont(optionFont);
         option.setBounds(380, 50, 600, 30);
         add(option);
+        // Adding Image
+           try {
+            File file = new File(
+                    "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
+            if (!file.exists()) {
+                System.out.println("Image file not found!");
+            }
+            ImageIcon i1 = new ImageIcon(file.getAbsolutePath());
+
+            // ImageIcon i1 = new ImageIcon(getClass().getResource("/images/pizza.jpg"));
+            Image i2 = i1.getImage().getScaledInstance(230, 230, Image.SCALE_SMOOTH);
+            ImageIcon i3 = new ImageIcon(i2);
+            JLabel image = new JLabel(i3);
+            image.setBounds(400, 200, 240, 240);
+            add(image, BorderLayout.CENTER);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         Pizzaname = new JLabel("Pizza Name");
         Font pizzaFont = new Font("Arial", Font.BOLD, 16);
         Pizzaname.setFont(pizzaFont);
