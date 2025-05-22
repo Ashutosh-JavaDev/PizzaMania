@@ -165,6 +165,16 @@ public class Pizzamenu extends JFrame implements ActionListener {
             }
             message.append("Total Price: Rs."+total);
             JOptionPane.showMessageDialog(null,message.toString());
+
+            // JDBC Connection
+            
+            try{
+                DatabaseConnectivity conn=new DatabaseConnectivity();
+
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
