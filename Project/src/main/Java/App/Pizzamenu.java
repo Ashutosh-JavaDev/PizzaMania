@@ -24,9 +24,9 @@ public class Pizzamenu extends JFrame implements ActionListener {
         setTitle("Pizza Mania");
         // title
         JLabel label = new JLabel("Welcome to Pizza Mania!");
-        label.setFont(loadCustomFont("main/Java/App/font/DancingScript-Regular.ttf", Font.PLAIN, 24));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setBounds(150,10,300,30);
+        Font labelFont = new Font("Serif", Font.PLAIN, 24);
+        label.setFont(labelFont);
+        label.setBounds(150, 10, 300, 30);
         add(label);
         //
         Pizzaname = new JLabel("Pizza Name");
@@ -44,31 +44,6 @@ public class Pizzamenu extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private Font loadCustomFont(String fontFileName, int style, float size) {
-        try {
-            File file = new File("main/Java/App/font/" + fontFileName);
-            if (!file.exists()) {
-                System.err.println("Font file not found: " + file.getAbsolutePath());
-                throw new RuntimeException("Font file missing.");
-            }
-    
-            InputStream is = new FileInputStream(file);
-            Font font = Font.createFont(Font.TRUETYPE_FONT, is);
-            font = font.deriveFont(style, size);
-    
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(font);
-    
-            System.out.println("Font loaded successfully: " + font.getFontName());
-    
-            return font;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Font("Serif", Font.PLAIN, 24); // fallback
-        }
-    }
-    
-    
     public void actionPerformed(ActionEvent ae) {
 
     }
