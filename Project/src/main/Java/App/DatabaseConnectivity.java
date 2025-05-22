@@ -1,4 +1,5 @@
 package main.Java.App;
+
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.DriverManager;
@@ -19,5 +20,7 @@ public class DatabaseConnectivity {
         catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Class Not Found", JOptionPane.ERROR_MESSAGE);
         }
+        conn.close();
+
     }
 }
