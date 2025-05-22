@@ -10,6 +10,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 public class Pizzamenu extends JFrame implements ActionListener {
+    public int Vegpizza = 300;
+    public int nonVegpizza = 400;
+    public int DeluxVegpizza = 550;
+    public int DeluxNonVegpizza = 650;
+    public int deliveryCharges = 20;
     JLabel Pizzaname, option, types;
     String[] list = { "Veg Pizza", "Non-Veg Pizza", "Delux Veg  Pizza", "Non-Veg Delux" };
     JComboBox<String> type = new JComboBox<>(list);
@@ -114,9 +119,15 @@ public class Pizzamenu extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
-
+@Override
     public void actionPerformed(ActionEvent ae) {
-
+        
+        if(ae.getSource()==Order){
+          String selectedPizza=(String)type.getSelectedItem();
+          boolean cheese=ExtraCheese.isSelected();
+          boolean toppings=ExtraToppings.isSelected();
+          boolean TakeAway=takeAway.isSelected();
+        }
     }
 
     public static void main(String[] args) {
