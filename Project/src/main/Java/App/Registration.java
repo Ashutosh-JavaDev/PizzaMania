@@ -1,5 +1,4 @@
 package main.Java.App;
-import main.Java.App.LoginPage;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;

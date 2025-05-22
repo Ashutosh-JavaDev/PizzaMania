@@ -11,9 +11,10 @@ public class Pizzamenu extends JFrame implements ActionListener {
     JLabel Pizzaname,option,types;
     String[] list = { "Veg Pizza", "Non-Veg Pizza", "Delux Veg  Pizza", "Non-Veg Delux" };
     JComboBox<String> type = new JComboBox<>(list);
-    JCheckBox extraType=new JCheckBox("'Extra Cheese'\n'Extra Toppings'");
+    String []lists={"Extra Cheese","Extra Toppings"};
+    JCheckBox extraType=new JCheckBox();
     public Pizzamenu() {
-
+       
         setTitle("Pizza Mania");
         // title
         JLabel label = new JLabel("Welcome to Pizza Mania!");
@@ -42,8 +43,12 @@ public class Pizzamenu extends JFrame implements ActionListener {
          Font typesFont = new Font("Arial", Font.BOLD,16);
         types.setFont(typesFont);
         add(types);
-        extraType.setBounds(300,100,100,30);
-        add(extraType);
+        extraType.setBounds(300,150,300,30);
+        for(String str:lists){
+             extraType=new JCheckBox(str);
+            add(extraType);
+        }
+
         setLayout(null);
         setSize(1000, 700);
         setLocationRelativeTo(null);
