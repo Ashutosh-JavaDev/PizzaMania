@@ -24,7 +24,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
         setTitle("Pizza Mania");
         // title
         JLabel label = new JLabel("Welcome to Pizza Mania!");
-        label.setFont(loadCustomFont("DancingScript-Regular.ttf", Font.PLAIN, 24));
+        label.setFont(loadCustomFont("main/Java/App/font/DancingScript-Regular.ttf", Font.PLAIN, 24));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBounds(150,10,300,30);
         add(label);
@@ -46,7 +46,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
 
     private Font loadCustomFont(String fontFileName, int style, float size) {
         try {
-            File file = new File("fonts/" + fontFileName);
+            File file = new File("main/Java/App/font/" + fontFileName);
             if (!file.exists()) {
                 System.err.println("Font file not found: " + file.getAbsolutePath());
                 throw new RuntimeException("Font file missing.");
