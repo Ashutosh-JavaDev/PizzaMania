@@ -1,10 +1,12 @@
 package main.Java.App;
+
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.Image;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,7 +16,7 @@ public class Registration extends JFrame implements ActionListener {
     JLabel title, Fname, Lname, email, phone, password, ConfirmPassword;
     JTextField FnameField, LnameField, emailfield, phonefield;
     JPasswordField passwordField, ConfirmPasswordField;
-    JButton submit,already;
+    JButton submit, already;
 
     public boolean checkpas(String Password) {
         if ((Password.length() < 8) || (Password.length() > 16)) {
@@ -34,11 +36,10 @@ public class Registration extends JFrame implements ActionListener {
     }
 
     public Registration() {
-        pnl=new JPanel();
-        pnl.setSize(700,500);
+        pnl = new JPanel();
+        pnl.setSize(700, 500);
         pnl.setBackground(Color.yellow);
         pnl.setForeground(Color.black);
-        add(pnl);
         try {
             File file = new File(
                     "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
@@ -129,6 +130,8 @@ public class Registration extends JFrame implements ActionListener {
         submit.setBounds(10, 250, 100, 25);
         submit.setFont(new Font("Arial", Font.BOLD, 15));
         submit.setBackground(Color.red);
+        submit.setForeground(Color.white);
+
         submit.addActionListener(this);
         add(submit);
         // Already
@@ -136,8 +139,11 @@ public class Registration extends JFrame implements ActionListener {
         already.setBounds(130, 250, 100, 25);
         already.setFont(new Font("Arial", Font.BOLD, 15));
         already.setBackground(Color.red);
+        already.setForeground(Color.white);
         add(already);
         already.addActionListener(this);
+        add(pnl);
+
         setLayout(null);
         setSize(700, 500);
         setLocationRelativeTo(null);
@@ -147,6 +153,10 @@ public class Registration extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == already) {
+            setVisible(false);
+            new LoginPage().setVisible(true);
+        }
         if (ae.getSource() == submit) {
             String fnameField = FnameField.getText();
             String lnameField = LnameField.getText();
@@ -172,30 +182,42 @@ public class Registration extends JFrame implements ActionListener {
                 } else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
 
-                    String sql = "INSERT INTO Registration (fnameField, lnameField, Email, phoneNumber, Password, confirmPassword) VALUES (?, ?, ?, ?, ?, ?)";
-                    PreparedStatement pstmt = conn.conn.prepareStatement(sql);
-                    pstmt.setString(1, fnameField);
-                    pstmt.setString(2, lnameField);
-                    pstmt.setString(3, Email);
-                    pstmt.setString(4, phoneNumber);
-                    pstmt.setString(5, Password);
-                    pstmt.setString(6, confirmPassword);
-                    pstmt.executeUpdate();
-                    
+                    // Step 1: Insert into Registration
+                    String regQuery = "INSERT INTO Registration(fnameField, lnameField, Email, phoneNumber, Password, confirmPassword) VALUES (?, ?, ?, ?, ?, ?)";
+                    PreparedStatement regStmt = conn.conn.prepareStatement(regQuery,
+                            PreparedStatement.RETURN_GENERATED_KEYS);
+                    regStmt.setString(1, fnameField);
+                    regStmt.setString(2, lnameField);
+                    regStmt.setString(3, Email);
+                    regStmt.setString(4, phoneNumber);
+                    regStmt.setString(5, Password);
+                    regStmt.setString(6, confirmPassword);
+                    regStmt.executeUpdate();
+
+                    // Step 2: Retrieve auto-generated CustomerID
+                    ResultSet rs = regStmt.getGeneratedKeys();
+                    int customerId = -1;
+                    if (rs.next()) {
+                        customerId = rs.getInt(1);
+                    }
+
+                    // Step 3: Insert into LoginPage
                     String loginQuery = "INSERT INTO LoginPage (Email, Password) VALUES (?, ?)";
-                    String InfoQuery="insert into PizzaInformation(Email)values(?)";
                     PreparedStatement loginStmt = conn.conn.prepareStatement(loginQuery);
-                    PreparedStatement InfoStmt=conn.conn.prepareStatement(InfoQuery);
                     loginStmt.setString(1, Email);
                     loginStmt.setString(2, Password);
                     loginStmt.executeUpdate();
-                    InfoStmt.setString(1, Email);
-                    InfoStmt.executeUpdate();
-                    
+
+                    // Step 4: Insert into PizzaInformation using CustomerID
+                    String infoQuery = "INSERT INTO PizzaInformation(CustomerID, Email) VALUES (?, ?)";
+                    PreparedStatement infoStmt = conn.conn.prepareStatement(infoQuery);
+                    infoStmt.setInt(1, customerId);
+                    infoStmt.setString(2, Email);
+                    infoStmt.executeUpdate();
+
                     JOptionPane.showMessageDialog(rootPane, "Registration successful!");
                     setVisible(false);
                     new LoginPage().setVisible(true);
-
                 }
 
             } catch (Exception e) {

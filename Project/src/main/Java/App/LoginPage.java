@@ -112,6 +112,7 @@ public class LoginPage extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(rootPane, "Login Successful");
 
                     setVisible(false);
+                    new Pizzamenu().setVisible(true);
                     // new main();
 
                 } else {

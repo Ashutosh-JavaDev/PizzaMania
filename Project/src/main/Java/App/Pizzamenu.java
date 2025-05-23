@@ -189,6 +189,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
                 stm.setString(1, selectType);
                 stm.setString(2, selectExtra);
                 stm.setInt(3, total);
+                stm.executeUpdate();
                 JOptionPane.showMessageDialog(null,"Order Saved");
 
             }
