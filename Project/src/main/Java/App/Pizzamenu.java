@@ -124,21 +124,26 @@ public class Pizzamenu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
 
         if (ae.getSource() == Order) {
+            String select="";
             String selectedPizza = (String) type.getSelectedItem();
             boolean cheese = ExtraCheese.isSelected();
             boolean toppings = ExtraToppings.isSelected();
             boolean TakeAway = takeAway.isSelected();
             int total = 0;
             if (selectedPizza.equals("Veg Pizza")) {
+                select+="Veg Pizza";
                 total += 200;
             }
             if (selectedPizza.equals("Non-Veg Pizza")) {
+                select+="Non-Veg Pizza";
                 total += 300;
             }
             if (selectedPizza.equals("Delux Veg Pizza")) {
+                select+="Delux Veg Pizza";
                 total += 300;
             }
             if (selectedPizza.equals("Delux Non-Veg Pizza")) {
+                select+="Delux Non-Veg Pizza";
                 total += 350;
             }
             // Add
@@ -172,7 +177,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
 
             try{
                 DatabaseConnectivity conn=new DatabaseConnectivity();
-
+                String Query="insert into PizzaInformation vaules("''")";
             }
             catch(Exception e){
                 e.printStackTrace();
