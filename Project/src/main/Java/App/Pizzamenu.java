@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Pizzamenu extends JFrame implements ActionListener {
     public int Vegpizza = 300;
@@ -17,7 +18,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
     public int DeluxNonVegpizza = 650;
     public int deliveryCharges = 20;
     JLabel Pizzaname, option, types;
-    String[] list = { "Veg Pizza", "Non-Veg Pizza", "Delux Veg  Pizza", "Delux Non-Veg Pizza" };
+    String[] list = { "Veg Pizza", "Non-Veg Pizza", "Delux Veg Pizza", "Delux Non-Veg Pizza" };
     JComboBox<String> type = new JComboBox<>(list);
     JCheckBox ExtraCheese, ExtraToppings, takeAway;
     JButton Order;
@@ -125,75 +126,85 @@ public class Pizzamenu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
 
         if (ae.getSource() == Order) {
-            String selectType="";
-            String selectExtra="";
+            String selectType = "";
+            String selectExtra = "";
             String selectedPizza = (String) type.getSelectedItem();
             boolean cheese = ExtraCheese.isSelected();
             boolean toppings = ExtraToppings.isSelected();
             boolean TakeAway = takeAway.isSelected();
             int total = 0;
             if (selectedPizza.equals("Veg Pizza")) {
-                selectType+="Veg Pizza";
+                selectType += "Veg Pizza";
                 total += 200;
             }
             if (selectedPizza.equals("Non-Veg Pizza")) {
-                selectType+="Non-Veg Pizza";
+                selectType += "Non-Veg Pizza";
                 total += 300;
             }
             if (selectedPizza.equals("Delux Veg Pizza")) {
-                selectType+="Delux Veg Pizza";
+                selectType += "Delux Veg Pizza";
                 total += 300;
             }
             if (selectedPizza.equals("Delux Non-Veg Pizza")) {
-                selectType+="Delux Non-Veg Pizza";
+                selectType += "Delux Non-Veg Pizza";
                 total += 350;
             }
             // Add
             if (cheese) {
-                selectExtra+="Extra Cheese";
+                selectExtra += "Extra Cheese";
                 total += 100;
             }
             if (toppings) {
 
-                selectExtra+="Extra Toppings";
+                selectExtra += "Extra Toppings";
                 total += 150;
             }
             if (TakeAway) {
-                selectExtra+="Take Away";
+                selectExtra += "Take Away";
                 total += 20;
             }
-           
-            StringBuilder message=new StringBuilder("Order Summary\n");
+
+            StringBuilder message = new StringBuilder("Order Summary\n");
             message.append("Pizza: ").append(selectedPizza).append("\n");
-            if(cheese){
+            if (cheese) {
                 message.append("Extra Cheesse: Yes(Rs.100)\n");
             }
-            if(toppings){
+            if (toppings) {
                 message.append("Extra Toppings Yes(Rs.150)\n");
             }
-            if(TakeAway){
+            if (TakeAway) {
                 message.append("Take Away: Yes(Rs.20)\n");
             }
-            message.append("Total Price: Rs."+total);
-            JOptionPane.showMessageDialog(null,message.toString());
+            message.append("Total Price: Rs." + total);
+            JOptionPane.showMessageDialog(null, message.toString());
 
             // JDBC Connection
             // INSERT INTO LoginPage (Email, Password)
-// SELECT Email, Password FROM Registration WHERE Email = ?;
+            // SELECT Email, Password FROM Registration WHERE Email = ?;
+            boolean orderPlacer = true;
+            try {
+                DatabaseConnectivity conn = new DatabaseConnectivity();
 
-            try{
-                DatabaseConnectivity conn=new DatabaseConnectivity();
-                
-                String Query="insert into PizzaInformation (PizzaType,ExtraThings,TotalAmt)values(?,?,?)";
-                PreparedStatement stm=conn.conn.prepareStatement(Query);
+                String Query = "insert into PizzaInformation (PizzaType,ExtraThings,TotalAmt)values(?,?,?)";
+                PreparedStatement stm = conn.conn.prepareStatement(Query);
                 stm.setString(1, selectType);
                 stm.setString(2, selectExtra);
                 stm.setInt(3, total);
-                stm.executeUpdate();
-                JOptionPane.showMessageDialog(null,"Order Saved");
+                if (orderPlacer) {
+                    stm.executeUpdate();
+                    PreparedStatement regStmt = conn.conn.prepareStatement(Query,
+                            PreparedStatement.RETURN_GENERATED_KEYS);
+                    ResultSet rs = regStmt.getGeneratedKeys();
+                    int customerId = -1;
+                    if (rs.next()) {
+                        customerId = rs.getInt(1);
+                    }
+                    String JQuery="Insert into PizzaInformation(Email)select Email from Registration where CustomerID= "+customerId;
+                    String query="insert into PizzaInformation (PizzaType,ExtraThings,TotalAmt)values(?,?,?)";
+                }
+                JOptionPane.showMessageDialog(null, "Order Saved");
 
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Order Not Saved");
                 e.printStackTrace();
             }

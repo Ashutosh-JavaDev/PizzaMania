@@ -194,26 +194,12 @@ public class Registration extends JFrame implements ActionListener {
                     regStmt.setString(6, confirmPassword);
                     regStmt.executeUpdate();
 
-                    // Step 2: Retrieve auto-generated CustomerID
-                    ResultSet rs = regStmt.getGeneratedKeys();
-                    int customerId = -1;
-                    if (rs.next()) {
-                        customerId = rs.getInt(1);
-                    }
-
-                    // Step 3: Insert into LoginPage
+                  //Step 2: Insert into LoginPage
                     String loginQuery = "INSERT INTO LoginPage (Email, Password) VALUES (?, ?)";
                     PreparedStatement loginStmt = conn.conn.prepareStatement(loginQuery);
                     loginStmt.setString(1, Email);
                     loginStmt.setString(2, Password);
-                    loginStmt.executeUpdate();
-
-                    // Step 4: Insert into PizzaInformation using CustomerID
-                    String infoQuery = "INSERT INTO PizzaInformation(CustomerID, Email) VALUES (?, ?)";
-                    PreparedStatement infoStmt = conn.conn.prepareStatement(infoQuery);
-                    infoStmt.setInt(1, customerId);
-                    infoStmt.setString(2, Email);
-                    infoStmt.executeUpdate();
+                    loginStmt.executeUpdate();                  
 
                     JOptionPane.showMessageDialog(rootPane, "Registration successful!");
                     setVisible(false);
