@@ -168,10 +168,14 @@ public class Registration extends JFrame implements ActionListener {
                     pstmt.executeUpdate();
                     
                     String loginQuery = "INSERT INTO LoginPage (Email, Password) VALUES (?, ?)";
+                    String InfoQuery="insert into PizzaInformation(Email)values(?)";
                     PreparedStatement loginStmt = conn.conn.prepareStatement(loginQuery);
+                    PreparedStatement InfoStmt=conn.conn.prepareStatement(InfoQuery);
                     loginStmt.setString(1, Email);
                     loginStmt.setString(2, Password);
                     loginStmt.executeUpdate();
+                    InfoStmt.setString(1, Email);
+                    InfoStmt.executeUpdate();
                     
                     JOptionPane.showMessageDialog(rootPane, "Registration successful!");
                     setVisible(false);

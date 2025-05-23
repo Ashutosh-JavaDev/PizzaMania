@@ -124,36 +124,41 @@ public class Pizzamenu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
 
         if (ae.getSource() == Order) {
-            String select="";
+            String selectType="";
+            String selectExtra="";
             String selectedPizza = (String) type.getSelectedItem();
             boolean cheese = ExtraCheese.isSelected();
             boolean toppings = ExtraToppings.isSelected();
             boolean TakeAway = takeAway.isSelected();
             int total = 0;
             if (selectedPizza.equals("Veg Pizza")) {
-                select+="Veg Pizza";
+                selectType+="Veg Pizza";
                 total += 200;
             }
             if (selectedPizza.equals("Non-Veg Pizza")) {
-                select+="Non-Veg Pizza";
+                selectType+="Non-Veg Pizza";
                 total += 300;
             }
             if (selectedPizza.equals("Delux Veg Pizza")) {
-                select+="Delux Veg Pizza";
+                selectType+="Delux Veg Pizza";
                 total += 300;
             }
             if (selectedPizza.equals("Delux Non-Veg Pizza")) {
-                select+="Delux Non-Veg Pizza";
+                selectType+="Delux Non-Veg Pizza";
                 total += 350;
             }
             // Add
             if (cheese) {
+                selectExtra+="Extra Cheese";
                 total += 100;
             }
             if (toppings) {
+
+                selectExtra+="Extra Toppings";
                 total += 150;
             }
             if (TakeAway) {
+                selectExtra+="Take Away";
                 total += 20;
             }
            
@@ -177,7 +182,9 @@ public class Pizzamenu extends JFrame implements ActionListener {
 
             try{
                 DatabaseConnectivity conn=new DatabaseConnectivity();
-                String Query="insert into PizzaInformation vaules("''")";
+                
+                String Query="insert into PizzaInformation (PizzaType,ExtraThings)values(?,?)";
+
             }
             catch(Exception e){
                 e.printStackTrace();
