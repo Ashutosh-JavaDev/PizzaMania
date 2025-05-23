@@ -23,8 +23,9 @@ public class Pizzamenu extends JFrame implements ActionListener {
     JCheckBox ExtraCheese, ExtraToppings, takeAway;
     JButton Order;
     JPanel panel;
-
-    public Pizzamenu() {
+    private String userEmail;
+    public Pizzamenu(String email) {
+        this.userEmail=email;
         panel = new JPanel();
         setTitle("Pizza Mania");
         // title
@@ -73,7 +74,7 @@ public class Pizzamenu extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "You selected Veg Pizza. Enjoy your green delight!");
                 } else if (selectedPizza.equals("Non-Veg Pizza")) {
                     JOptionPane.showMessageDialog(null, "Non-Veg Pizza selected. Meaty and delicious!");
-                } else if (selectedPizza.equals("Delux Veg  Pizza")) {
+                } else if (selectedPizza.equals("Delux Veg Pizza")) {
                     JOptionPane.showMessageDialog(null, "Delux Veg Pizza — loaded with extra veggies!");
                 } else if (selectedPizza.equals("Non-Veg Delux")) {
                     JOptionPane.showMessageDialog(null, "Non-Veg Delux — top-tier indulgence!");
@@ -184,34 +185,48 @@ public class Pizzamenu extends JFrame implements ActionListener {
             boolean orderPlacer = true;
             try {
                 DatabaseConnectivity conn = new DatabaseConnectivity();
-
-                String Query = "insert into PizzaInformation (PizzaType,ExtraThings,TotalAmt)values(?,?,?)";
-                PreparedStatement stm = conn.conn.prepareStatement(Query);
-                stm.setString(1, selectType);
-                stm.setString(2, selectExtra);
-                stm.setInt(3, total);
+            
                 if (orderPlacer) {
-                    stm.executeUpdate();
-                    PreparedStatement regStmt = conn.conn.prepareStatement(Query,
-                            PreparedStatement.RETURN_GENERATED_KEYS);
-                    ResultSet rs = regStmt.getGeneratedKeys();
+                    // Step 1: Fetch CustomerID using the email
+                    String fetchQuery = "SELECT CustomerID FROM Registration WHERE Email = ?";
+                    PreparedStatement fetchStmt = conn.conn.prepareStatement(fetchQuery);
+                    fetchStmt.setString(1, userEmail);
+                    ResultSet rs = fetchStmt.executeQuery();
+            
                     int customerId = -1;
                     if (rs.next()) {
-                        customerId = rs.getInt(1);
+                        customerId = rs.getInt("CustomerID");
                     }
-                    String JQuery="Insert into PizzaInformation(Email)select Email from Registration where CustomerID= "+customerId;
-                    String query="insert into PizzaInformation (PizzaType,ExtraThings,TotalAmt)values(?,?,?)";
+            
+                    // Step 2: Insert into PizzaInformation if CustomerID found
+                    if (customerId != -1) {
+                        String insertQuery = "INSERT INTO PizzaInformation (CustomerID, Email, PizzaType, ExtraThings, TotalAmt) VALUES (?, ?, ?, ?, ?)";
+                        PreparedStatement insertStmt = conn.conn.prepareStatement(insertQuery);
+                        insertStmt.setInt(1, customerId);
+                        insertStmt.setString(2, userEmail);
+                        insertStmt.setString(3, selectType);
+                        insertStmt.setString(4, selectExtra);
+                        insertStmt.setInt(5, total);
+            
+                        insertStmt.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Order Saved");
+                        setDefaultCloseOperation(EXIT_ON_CLOSE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Customer ID not found for email: " + userEmail);
+                    }
                 }
-                JOptionPane.showMessageDialog(null, "Order Saved");
-
+            
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Order Not Saved");
                 e.printStackTrace();
             }
+            
         }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Pizzamenu::new);
+        String email = "user@example.com"; 
+        SwingUtilities.invokeLater(() -> new Pizzamenu(email));
+        
     }
 }
