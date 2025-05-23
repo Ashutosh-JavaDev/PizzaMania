@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.PreparedStatement;
 
 public class Pizzamenu extends JFrame implements ActionListener {
     public int Vegpizza = 300;
@@ -183,10 +184,16 @@ public class Pizzamenu extends JFrame implements ActionListener {
             try{
                 DatabaseConnectivity conn=new DatabaseConnectivity();
                 
-                String Query="insert into PizzaInformation (PizzaType,ExtraThings)values(?,?)";
+                String Query="insert into PizzaInformation (PizzaType,ExtraThings,TotalAmt)values(?,?,?)";
+                PreparedStatement stm=conn.conn.prepareStatement(Query);
+                stm.setString(1, selectType);
+                stm.setString(2, selectExtra);
+                stm.setInt(3, total);
+                JOptionPane.showMessageDialog(null,"Order Saved");
 
             }
             catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Order Not Saved");
                 e.printStackTrace();
             }
         }
