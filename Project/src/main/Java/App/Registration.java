@@ -7,12 +7,14 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.awt.Image;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 public class Registration extends JFrame implements ActionListener {
+    JPanel pnl;
     JLabel title, Fname, Lname, email, phone, password, ConfirmPassword;
     JTextField FnameField, LnameField, emailfield, phonefield;
     JPasswordField passwordField, ConfirmPasswordField;
-    JButton submit;
+    JButton submit,already;
 
     public boolean checkpas(String Password) {
         if ((Password.length() < 8) || (Password.length() > 16)) {
@@ -32,6 +34,11 @@ public class Registration extends JFrame implements ActionListener {
     }
 
     public Registration() {
+        pnl=new JPanel();
+        pnl.setSize(700,500);
+        pnl.setBackground(Color.yellow);
+        pnl.setForeground(Color.black);
+        add(pnl);
         try {
             File file = new File(
                     "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
@@ -121,8 +128,16 @@ public class Registration extends JFrame implements ActionListener {
         submit = new JButton("Submit");
         submit.setBounds(10, 250, 100, 25);
         submit.setFont(new Font("Arial", Font.BOLD, 15));
-        add(submit);
+        submit.setBackground(Color.red);
         submit.addActionListener(this);
+        add(submit);
+        // Already
+        already = new JButton("Login");
+        already.setBounds(130, 250, 100, 25);
+        already.setFont(new Font("Arial", Font.BOLD, 15));
+        already.setBackground(Color.red);
+        add(already);
+        already.addActionListener(this);
         setLayout(null);
         setSize(700, 500);
         setLocationRelativeTo(null);
