@@ -1,184 +1,284 @@
 package main.Java.App;
 
 import javax.swing.*;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.awt.Image;
-import java.awt.BorderLayout;
-import java.awt.Color;
+
+import main.Java.App.theme.PizzaManiaTheme;
+import main.Java.App.components.RoundedPanel;
+import main.Java.App.components.ImagePanel;
 
 public class Registration extends JFrame implements ActionListener {
-    JPanel pnl;
-    JLabel title, Fname, Lname, email, phone, password, ConfirmPassword;
-    JTextField FnameField, LnameField, emailfield, phonefield;
-    JPasswordField passwordField, ConfirmPasswordField;
-    JButton submit, already;
+    private RoundedPanel mainPanel, formPanel;
+    private JLabel titleLabel, subtitleLabel;
+    private JLabel fnameLabel, lnameLabel, emailLabel, phoneLabel, passwordLabel, confirmPasswordLabel;
+    private JTextField fnameField, lnameField, emailField, phoneField;
+    private JPasswordField passwordField, confirmPasswordField;
+    private JButton submitButton, loginButton;
+    private ImagePanel logoPanel;
 
-    public boolean checkpas(String Password) {
-        if ((Password.length() < 8) || (Password.length() > 16)) {
-            JOptionPane.showMessageDialog(rootPane, "Password must be between 8 and 16 characters.");
+    public boolean checkPassword(String password) {
+        if ((password.length() < 8) || (password.length() > 16)) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Password must be between 8 and 16 characters.",
+                "Password Error", 
+                JOptionPane.ERROR_MESSAGE
+            );
             return false;
         }
 
-        boolean res = false;
-        for (int i = 0; i < Password.length(); i++) { // include last character
-            char ch = Password.charAt(i);
-            if (Character.isLowerCase(ch) || Character.isUpperCase(ch) || Character.isDigit(ch)) {
-                res = true;
-            }
+        boolean hasLower = false;
+        boolean hasUpper = false;
+        boolean hasDigit = false;
+        boolean hasSpecial = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isLowerCase(c)) hasLower = true;
+            else if (Character.isUpperCase(c)) hasUpper = true;
+            else if (Character.isDigit(c)) hasDigit = true;
+            else hasSpecial = true;
         }
 
-        return res;
+        if (!hasLower || !hasUpper || !hasDigit || !hasSpecial) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Password must contain uppercase, lowercase, digit, and special character.",
+                "Password Error", 
+                JOptionPane.ERROR_MESSAGE
+            );
+            return false;
+        }
+
+        return true;
     }
 
     public Registration() {
-        pnl = new JPanel();
-        pnl.setSize(700, 500);
-        pnl.setBackground(Color.yellow);
-        pnl.setForeground(Color.black);
+        setTitle("Pizza Mania - Registration");
+        PizzaManiaTheme.setupFrame(this);
+        setLayout(new BorderLayout(20, 20));
+        
+        // Main container panel
+        mainPanel = new RoundedPanel(new BorderLayout(20, 20));
+        mainPanel.setBackground(PizzaManiaTheme.PANEL_BACKGROUND);
+        
+        // Header section with logo and title
+        JPanel headerPanel = new JPanel(new BorderLayout(15, 5));
+        headerPanel.setOpaque(false);
+        
+        // Logo
         try {
-            File file = new File(
-                    "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png");
-            if (!file.exists()) {
-                System.out.println("Image file not found!");
+            String logoPath = "/home/ashutosh/Desktop/PizzaMania/PizzaMania/Project/src/main/Java/App/Images/0238e1d8-09ae-4bfd-a506-edd260a59d1c-removebg-preview.png";
+            File logoFile = new File(logoPath);
+            
+            if (logoFile.exists()) {
+                ImageIcon logoIcon = new ImageIcon(logoFile.getAbsolutePath());
+                Image logoImage = logoIcon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+                logoPanel = new ImagePanel(logoImage);
+                logoPanel.setPreferredSize(new Dimension(120, 120));
+                headerPanel.add(logoPanel, BorderLayout.WEST);
+            } else {
+                System.out.println("Logo file not found at: " + logoPath);
             }
-            ImageIcon i1 = new ImageIcon(file.getAbsolutePath());
-
-            // ImageIcon i1 = new ImageIcon(getClass().getResource("/images/pizza.jpg"));
-            Image i2 = i1.getImage().getScaledInstance(230, 230, Image.SCALE_SMOOTH);
-            ImageIcon i3 = new ImageIcon(i2);
-            JLabel label = new JLabel(i3);
-            label.setBounds(400, 200, 240, 240);
-            add(label, BorderLayout.CENTER);
-
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        // Title
-        setTitle("Registration Form");
-        title = new JLabel("User Registration Form");
-        title.setBounds(250, 10, 250, 25);
-        Font tFont = new Font("Arial", Font.BOLD, 18);
-        title.setFont(tFont);
-        add(title);
-        // FirstName
-        Fname = new JLabel("First Name");
-        Fname.setBounds(10, 60, 90, 25);
-        Font fFont = new Font("Arial", Font.BOLD, 15);
-        Fname.setFont(fFont);
-        add(Fname);
-        FnameField = new JTextField();
-        FnameField.setBounds(110, 60, 150, 25);
-        Font fFieldFont = new Font("Arial", Font.PLAIN, 12);
-        FnameField.setFont(fFieldFont);
-        add(FnameField);
-        // Second Name
-        Lname = new JLabel("Last Name");
-        Lname.setBounds(320, 60, 90, 25);
-        Font lFont = new Font("Arial", Font.BOLD, 15);
-        Lname.setFont(lFont);
-        add(Lname);
-        LnameField = new JTextField();
-        LnameField.setBounds(420, 60, 150, 25);
-        Font lFieldFont = new Font("Arial", Font.PLAIN, 12);
-        LnameField.setFont(lFieldFont);
-        add(LnameField);
+        
+        // Title section
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.setOpaque(false);
+        
+        titleLabel = new JLabel("Create Your Account");
+        titleLabel.setFont(PizzaManiaTheme.HEADING_LARGE);
+        titleLabel.setForeground(PizzaManiaTheme.PRIMARY_RED);
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        subtitleLabel = new JLabel("Join Pizza Mania and start ordering your favorite pizzas!");
+        subtitleLabel.setFont(PizzaManiaTheme.BODY_REGULAR);
+        subtitleLabel.setForeground(PizzaManiaTheme.DARK_TEXT);
+        subtitleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        titlePanel.add(titleLabel);
+        titlePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        titlePanel.add(subtitleLabel);
+        headerPanel.add(titlePanel, BorderLayout.CENTER);
+        
+        // Form panel
+        formPanel = new RoundedPanel();
+        formPanel.setLayout(new GridBagLayout());
+        formPanel.setBackground(Color.WHITE);
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(8, 12, 8, 12);
+        
+        // First name
+        fnameLabel = new JLabel("First Name");
+        PizzaManiaTheme.styleLabel(fnameLabel, false);
+        fnameField = new JTextField(15);
+        PizzaManiaTheme.styleTextField(fnameField);
+        
+        // Last name
+        lnameLabel = new JLabel("Last Name");
+        PizzaManiaTheme.styleLabel(lnameLabel, false);
+        lnameField = new JTextField(15);
+        PizzaManiaTheme.styleTextField(lnameField);
+        
         // Email
-        email = new JLabel("Email ID");
-        email.setBounds(10, 110, 100, 25);
-        email.setFont(new Font("Arial", Font.BOLD, 15));
-        add(email);
-
-        emailfield = new JTextField();
-        emailfield.setBounds(110, 110, 150, 25);
-        emailfield.setFont(new Font("Arial", Font.BOLD, 15));
-        add(emailfield);
-        // phone
-        phone = new JLabel("Contact No.");
-        phone.setBounds(320, 110, 150, 25);
-        phone.setFont(new Font("Arial", Font.BOLD, 15));
-        add(phone);
-
-        phonefield = new JTextField();
-        phonefield.setBounds(420, 110, 150, 25);
-        phonefield.setFont(new Font("Arial", Font.BOLD, 15));
-        add(phonefield);
+        emailLabel = new JLabel("Email Address");
+        PizzaManiaTheme.styleLabel(emailLabel, false);
+        emailField = new JTextField(15);
+        PizzaManiaTheme.styleTextField(emailField);
+        
+        // Phone
+        phoneLabel = new JLabel("Phone Number");
+        PizzaManiaTheme.styleLabel(phoneLabel, false);
+        phoneField = new JTextField(15);
+        PizzaManiaTheme.styleTextField(phoneField);
+        
         // Password
-        password = new JLabel("Password");
-        password.setBounds(10, 160, 100, 25);
-        password.setFont(new Font("Arial", Font.BOLD, 15));
-        add(password);
-        passwordField = new JPasswordField();
-        passwordField.setBounds(110, 160, 150, 25);
-        passwordField.setFont(new Font("Arial", Font.BOLD, 15));
-        add(passwordField);
-        // checkPassword
-        ConfirmPassword = new JLabel("Confirm");
-        ConfirmPassword.setBounds(320, 160, 100, 25);
-        ConfirmPassword.setFont(new Font("Arial", Font.BOLD, 15));
-        add(ConfirmPassword);
-        ConfirmPasswordField = new JPasswordField();
-        ConfirmPasswordField.setBounds(420, 160, 150, 25);
-        ConfirmPasswordField.setFont(new Font("Arial", Font.BOLD, 15));
-        add(ConfirmPasswordField);
-        // Button
-        submit = new JButton("Submit");
-        submit.setBounds(10, 250, 100, 25);
-        submit.setFont(new Font("Arial", Font.BOLD, 15));
-        submit.setBackground(Color.red);
-        submit.setForeground(Color.white);
-
-        submit.addActionListener(this);
-        add(submit);
-        // Already
-        already = new JButton("Login");
-        already.setBounds(130, 250, 100, 25);
-        already.setFont(new Font("Arial", Font.BOLD, 15));
-        already.setBackground(Color.red);
-        already.setForeground(Color.white);
-        add(already);
-        already.addActionListener(this);
-        add(pnl);
-
-        setLayout(null);
-        setSize(700, 500);
+        passwordLabel = new JLabel("Password");
+        PizzaManiaTheme.styleLabel(passwordLabel, false);
+        passwordField = new JPasswordField(15);
+        PizzaManiaTheme.stylePasswordField(passwordField);
+        
+        // Confirm Password
+        confirmPasswordLabel = new JLabel("Confirm Password");
+        PizzaManiaTheme.styleLabel(confirmPasswordLabel, false);
+        confirmPasswordField = new JPasswordField(15);
+        PizzaManiaTheme.stylePasswordField(confirmPasswordField);
+        
+        // Add components to form panel using GridBagLayout
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        formPanel.add(fnameLabel, gbc);
+        
+        gbc.gridx = 1;
+        formPanel.add(lnameLabel, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formPanel.add(fnameField, gbc);
+        
+        gbc.gridx = 1;
+        formPanel.add(lnameField, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        formPanel.add(emailLabel, gbc);
+        
+        gbc.gridx = 1;
+        formPanel.add(phoneLabel, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        formPanel.add(emailField, gbc);
+        
+        gbc.gridx = 1;
+        formPanel.add(phoneField, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        formPanel.add(passwordLabel, gbc);
+        
+        gbc.gridx = 1;
+        formPanel.add(confirmPasswordLabel, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        formPanel.add(passwordField, gbc);
+        
+        gbc.gridx = 1;
+        formPanel.add(confirmPasswordField, gbc);
+        
+        // Button panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
+        buttonPanel.setOpaque(false);
+        
+        submitButton = new JButton("Create Account");
+        PizzaManiaTheme.styleButton(submitButton, true);
+        submitButton.addActionListener(this);
+        
+        loginButton = new JButton("Already have an account? Login");
+        PizzaManiaTheme.styleButton(loginButton, false);
+        loginButton.addActionListener(this);
+        
+        buttonPanel.add(submitButton);
+        buttonPanel.add(loginButton);
+        
+        // Add panels to main layout
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(20, 12, 8, 12);
+        formPanel.add(buttonPanel, gbc);
+        
+        // Add all panels to main container
+        mainPanel.add(headerPanel, BorderLayout.NORTH);
+        mainPanel.add(formPanel, BorderLayout.CENTER);
+        
+        // Add main panel to frame
+        add(mainPanel, BorderLayout.CENTER);
+        
+        // Set frame properties
+        setSize(700, 650);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-
     }
 
+    @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == already) {
+        if (ae.getSource() == loginButton) {
             setVisible(false);
             new LoginPage().setVisible(true);
         }
-        if (ae.getSource() == submit) {
-            String fnameField = FnameField.getText();
-            String lnameField = LnameField.getText();
-            String Email = emailfield.getText();
-            String phoneNumber = phonefield.getText();
-            String Password = passwordField.getText();
-            String confirmPassword = ConfirmPasswordField.getText();
+        
+        if (ae.getSource() == submitButton) {
+            String firstName = fnameField.getText();
+            String lastName = lnameField.getText();
+            String email = emailField.getText();
+            String phoneNumber = phoneField.getText();
+            String password = new String(passwordField.getPassword());
+            String confirmPassword = new String(confirmPasswordField.getPassword());
 
             try {
-
-                if (fnameField.isEmpty() || lnameField.isEmpty() || Email.isEmpty() || phoneNumber.isEmpty()
-                        || Password.isEmpty()
-                        || confirmPassword.isEmpty()) {
-                    JOptionPane.showMessageDialog(rootPane, "All fields are required!");
-                } else if (!Password.equals(confirmPassword)) {
-                    JOptionPane.showMessageDialog(rootPane, "Passwords do not match!");
+                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty()
+                        || password.isEmpty() || confirmPassword.isEmpty()) {
+                    JOptionPane.showMessageDialog(
+                        this, 
+                        "All fields are required!",
+                        "Registration Error", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                } else if (!password.equals(confirmPassword)) {
+                    JOptionPane.showMessageDialog(
+                        this, 
+                        "Passwords do not match!",
+                        "Registration Error", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
                 } else if (!phoneNumber.matches("\\d{10}")) {
-                    JOptionPane.showMessageDialog(rootPane, "Phone number must be exactly 10 digits!");
-                } else if (!Password.matches(".*[^a-zA-Z0-9 ].*")) {
-                    JOptionPane.showMessageDialog(rootPane, "Password must contain at least one special character!");
-                } else if (!checkpas(Password)) {
-                    JOptionPane.showMessageDialog(rootPane, "Password must contain Uppercase and Lowercase and Digit");
+                    JOptionPane.showMessageDialog(
+                        this, 
+                        "Phone number must be exactly 10 digits!",
+                        "Registration Error", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                } else if (!password.matches(".*[^a-zA-Z0-9 ].*")) {
+                    JOptionPane.showMessageDialog(
+                        this, 
+                        "Password must contain at least one special character!",
+                        "Registration Error", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                } else if (!checkPassword(password)) {
+                    // The checkPassword method will show appropriate error message
                 } else {
                     DatabaseConnectivity conn = new DatabaseConnectivity();
 
@@ -186,37 +286,49 @@ public class Registration extends JFrame implements ActionListener {
                     String regQuery = "INSERT INTO Registration(fnameField, lnameField, Email, phoneNumber, Password, confirmPassword) VALUES (?, ?, ?, ?, ?, ?)";
                     PreparedStatement regStmt = conn.conn.prepareStatement(regQuery,
                             PreparedStatement.RETURN_GENERATED_KEYS);
-                    regStmt.setString(1, fnameField);
-                    regStmt.setString(2, lnameField);
-                    regStmt.setString(3, Email);
+                    regStmt.setString(1, firstName);
+                    regStmt.setString(2, lastName);
+                    regStmt.setString(3, email);
                     regStmt.setString(4, phoneNumber);
-                    regStmt.setString(5, Password);
+                    regStmt.setString(5, password);
                     regStmt.setString(6, confirmPassword);
                     regStmt.executeUpdate();
 
-                  //Step 2: Insert into LoginPage
+                    // Step 2: Insert into LoginPage
                     String loginQuery = "INSERT INTO LoginPage (Email, Password) VALUES (?, ?)";
                     PreparedStatement loginStmt = conn.conn.prepareStatement(loginQuery);
-                    loginStmt.setString(1, Email);
-                    loginStmt.setString(2, Password);
+                    loginStmt.setString(1, email);
+                    loginStmt.setString(2, password);
                     loginStmt.executeUpdate();                  
 
-                    JOptionPane.showMessageDialog(rootPane, "Registration successful!");
+                    JOptionPane.showMessageDialog(
+                        this, 
+                        "Registration successful! You can now log in.",
+                        "Registration Complete", 
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                    
                     setVisible(false);
                     new LoginPage().setVisible(true);
                 }
-
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Database connection not established!");
-
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Database connection not established!",
+                    "Registration Error", 
+                    JOptionPane.ERROR_MESSAGE
+                );
                 e.printStackTrace();
             }
         }
-
     }
 
     public static void main(String[] args) {
-        new Registration();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> new Registration());
     }
-
 }
